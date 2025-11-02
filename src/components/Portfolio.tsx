@@ -1,11 +1,25 @@
 import { useTheme } from '../hooks/useTheme'
 import profilePicture from '../assets/profile.svg'
+import { 
+  RiLightbulbLine,
+  RiTwitterXLine,
+  RiTwitterXFill,
+  RiLinkedinBoxLine,
+  RiLinkedinBoxFill,
+  RiMediumLine,
+  RiMediumFill,
+  RiGithubLine,
+  RiGithubFill
+} from '@remixicon/react'
 
 function Portfolio() {
-  useTheme()
+  const { theme, toggleTheme } = useTheme()
 
   return (
     <div className="portfolio">
+      <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+        <RiLightbulbLine size={24} />
+      </button>
       <div className="portfolio-content">
         <div className="profile-section">
           <img 
@@ -17,66 +31,60 @@ function Portfolio() {
         </div>
         <div className="social-links">
           <a 
-            href="https://x.com/yourusername" 
+            href="https://x.com/ajanerom" 
             target="_blank" 
             rel="noopener noreferrer"
             className="social-link"
+            aria-label="X (Twitter)"
           >
-            X
+            {theme === 'dark' ? (
+              <RiTwitterXLine size={24} />
+            ) : (
+              <RiTwitterXFill size={24} />
+            )}
           </a>
           <a 
-            href="https://linkedin.com/in/yourusername" 
+            href="https://www.linkedin.com/in/ajanerom-devops" 
             target="_blank" 
             rel="noopener noreferrer"
             className="social-link"
+            aria-label="LinkedIn"
           >
-            LinkedIn
+            {theme === 'dark' ? (
+              <RiLinkedinBoxLine size={24} />
+            ) : (
+              <RiLinkedinBoxFill size={24} />
+            )}
           </a>
           <a 
-            href="https://medium.com/@yourusername" 
+            href="https://ajanerom.medium.com/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="social-link"
+            aria-label="Medium"
           >
-            Medium
+            {theme === 'dark' ? (
+              <RiMediumLine size={24} />
+            ) : (
+              <RiMediumFill size={24} />
+            )}
           </a>
           <a 
-            href="https://github.com/yourusername" 
+            href="https://github.com/varn0" 
             target="_blank" 
             rel="noopener noreferrer"
             className="social-link"
+            aria-label="GitHub"
           >
-            GitHub
+            {theme === 'dark' ? (
+              <RiGithubLine size={24} />
+            ) : (
+              <RiGithubFill size={24} />
+            )}
           </a>
         </div>
       </div>
-      <div className="geometric-decoration">
-        <svg width="200" height="200" viewBox="0 0 200 200" className="geometric-svg">
-          <line 
-            x1="200" y1="200" x2="200" y2="50" 
-            stroke="var(--border-color)" 
-            strokeWidth="2"
-            className="thick-segment"
-          />
-          <line 
-            x1="200" y1="50" x2="50" y2="200" 
-            stroke="var(--border-color)" 
-            strokeWidth="1"
-          />
-          <line 
-            x1="50" y1="200" x2="200" y2="200" 
-            stroke="var(--border-color)" 
-            strokeWidth="1"
-          />
-          <polygon 
-            points="170,170 170,100 100,170" 
-            fill="none" 
-            stroke="var(--border-color)" 
-            strokeWidth="1"
-            className="triangle-small"
-          />
-        </svg>
-      </div>
+
     </div>
   )
 }

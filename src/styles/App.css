@@ -44,6 +44,27 @@ body {
   justify-content: center;
 }
 
+.theme-toggle {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.75rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.theme-toggle:hover {
+  opacity: 0.7;
+}
+
 .portfolio-content {
   display: flex;
   flex-direction: column;
@@ -85,11 +106,32 @@ body {
 }
 
 .social-link {
-  color: var(--text-color);
   text-decoration: none;
-  font-size: 1rem;
   transition: opacity 0.2s ease;
-  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+:root[data-theme="dark"] .social-link {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+:root[data-theme="dark"] .social-link svg {
+  fill: #000000;
+}
+
+:root[data-theme="light"] .social-link {
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+:root[data-theme="light"] .social-link svg {
+  fill: var(--text-color);
 }
 
 .social-link:hover {
@@ -147,7 +189,15 @@ body {
   }
 
   .social-link {
-    font-size: 0.9rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .theme-toggle {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.25rem;
+    padding: 0.5rem;
   }
 
   .geometric-decoration {
