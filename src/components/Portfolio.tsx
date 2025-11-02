@@ -7,12 +7,14 @@ function Portfolio() {
   return (
     <div className="portfolio">
       <div className="portfolio-content">
-        <img 
-          src={profilePicture} 
-          alt="Profile" 
-          className="profile-picture"
-        />
-        <h1 className="name">Your Name</h1>
+        <div className="profile-section">
+          <img 
+            src={profilePicture} 
+            alt="Profile" 
+            className="profile-picture"
+          />
+          <h1 className="name">Your Name</h1>
+        </div>
         <div className="social-links">
           <a 
             href="https://x.com/yourusername" 
@@ -47,6 +49,33 @@ function Portfolio() {
             GitHub
           </a>
         </div>
+      </div>
+      <div className="geometric-decoration">
+        <svg width="200" height="200" viewBox="0 0 200 200" className="geometric-svg">
+          <line 
+            x1="200" y1="200" x2="200" y2="50" 
+            stroke="var(--border-color)" 
+            strokeWidth="2"
+            className="thick-segment"
+          />
+          <line 
+            x1="200" y1="50" x2="50" y2="200" 
+            stroke="var(--border-color)" 
+            strokeWidth="1"
+          />
+          <line 
+            x1="50" y1="200" x2="200" y2="200" 
+            stroke="var(--border-color)" 
+            strokeWidth="1"
+          />
+          <polygon 
+            points="170,170 170,100 100,170" 
+            fill="none" 
+            stroke="var(--border-color)" 
+            strokeWidth="1"
+            className="triangle-small"
+          />
+        </svg>
       </div>
     </div>
   )

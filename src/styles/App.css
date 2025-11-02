@@ -29,12 +29,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 5%;
+  position: relative;
 }
 
 .portfolio {
   width: 100%;
-  max-width: 600px;
+  height: 100%;
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .portfolio-content {
@@ -42,6 +49,16 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  justify-content: center;
 }
 
 .profile-picture {
@@ -50,13 +67,14 @@ body {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--border-color);
+  flex-shrink: 0;
 }
 
 .name {
   font-size: 2rem;
   font-weight: normal;
-  text-align: center;
   letter-spacing: 0.1em;
+  white-space: nowrap;
 }
 
 .social-links {
@@ -70,8 +88,6 @@ body {
   color: var(--text-color);
   text-decoration: none;
   font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border-color);
   transition: opacity 0.2s ease;
   letter-spacing: 0.05em;
 }
@@ -80,7 +96,41 @@ body {
   opacity: 0.7;
 }
 
+.geometric-decoration {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.geometric-svg {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  opacity: 0.9;
+}
+
+.geometric-svg .triangle-large {
+  stroke-width: 1;
+}
+
+.geometric-svg .triangle-small {
+  stroke-width: 1;
+}
+
 @media (max-width: 768px) {
+  .portfolio {
+    padding: 1.5rem;
+  }
+
+  .profile-section {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
   .profile-picture {
     width: 150px;
     height: 150px;
@@ -88,15 +138,26 @@ body {
 
   .name {
     font-size: 1.5rem;
+    white-space: normal;
+    text-align: center;
   }
 
   .social-links {
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   .social-link {
     font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
+  }
+
+  .geometric-decoration {
+    width: 150px;
+    height: 150px;
+  }
+
+  .geometric-svg {
+    width: 150px;
+    height: 150px;
   }
 }
 
