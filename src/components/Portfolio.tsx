@@ -27,7 +27,7 @@ function Portfolio() {
             alt="Profile" 
             className="profile-picture"
           />
-          <h1 className="name">Your Name</h1>
+          <h1 className="name">Alexis Janero Moliner</h1>
         </div>
         <div className="social-links">
           <a 
