@@ -47,7 +47,8 @@ body {
 .theme-toggle {
   position: absolute;
   top: 2rem;
-  right: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
   background: none;
   border: none;
   color: var(--text-color);
@@ -195,7 +196,6 @@ body {
 
   .theme-toggle {
     top: 1rem;
-    right: 1rem;
     font-size: 1.25rem;
     padding: 0.5rem;
   }

@@ -1,5 +1,5 @@
 import { useTheme } from '../hooks/useTheme'
-import profilePicture from '../assets/profile.svg'
+import profilePicture from '../assets/profile-picture.jpeg'
 import { 
   RiLightbulbLine,
   RiTwitterXLine,
@@ -57,7 +57,7 @@ function Portfolio() {
             )}
           </a>
           <a 
-            href="https://ajanerom.medium.com/" 
+            href="https://ajanerom.medium.com" 
             target="_blank" 
             rel="noopener noreferrer"
             className="social-link"
