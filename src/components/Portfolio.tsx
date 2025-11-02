@@ -1,7 +1,6 @@
 import { useTheme } from '../hooks/useTheme'
 import profilePicture from '../assets/profile-picture.jpeg'
 import { 
-  RiLightbulbLine,
   RiTwitterXLine,
   RiTwitterXFill,
   RiLinkedinBoxLine,
@@ -13,13 +12,10 @@ import {
 } from '@remixicon/react'
 
 function Portfolio() {
-  const { theme, toggleTheme } = useTheme()
+  const { theme } = useTheme()
 
   return (
     <div className="portfolio">
-      <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-        <RiLightbulbLine size={24} />
-      </button>
       <div className="portfolio-content">
         <div className="profile-section">
           <img 
