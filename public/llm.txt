@@ -1,7 +1,7 @@
 # Alexis Janero Moliner
 
 ## About
-Alexis Janero Moliner is a DevOps professional and developer. This is their personal portfolio website.
+Alexis Janero Moliner is a DevOps professional and developer. This is his personal portfolio website.
 
 ## Contact & Social Links
 - X (Twitter): https://x.com/ajanerom
