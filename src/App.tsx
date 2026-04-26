@@ -1,19 +1,22 @@
-import Portfolio from './components/Portfolio'
-import { useTheme } from './hooks/useTheme'
-import { RiLightbulbLine } from '@remixicon/react'
+import { Routes, Route } from 'react-router-dom'
+import { useSide } from './hooks/useSide'
+import { TechLayout } from './components/tech/TechLayout'
+import { TechHome } from './components/tech/TechHome'
+import { CvPage } from './components/tech/CvPage'
+import { BlogIndex } from './components/tech/BlogIndex'
 
 function App() {
-  const { toggleTheme } = useTheme()
+  useSide()
 
   return (
-    <div className="app">
-      <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-        <RiLightbulbLine size={24} />
-      </button>
-      <Portfolio />
-    </div>
+    <Routes>
+      <Route element={<TechLayout />}>
+        <Route index element={<TechHome />} />
+        <Route path="cv" element={<CvPage />} />
+        <Route path="blog" element={<BlogIndex />} />
+      </Route>
+    </Routes>
   )
 }
 
 export default App
-
