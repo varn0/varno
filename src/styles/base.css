@@ -1,0 +1,49 @@
+/* === Theme tokens (light/dark) === */
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --text: #000000;
+  --border: #000000;
+  --text-muted: #666666;
+}
+
+:root[data-theme="dark"] {
+  --bg: #000000;
+  --text: #ffffff;
+  --border: #ffffff;
+  --text-muted: #999999;
+}
+
+/* === Side tokens (tech/creative) === */
+:root[data-side="tech"] {
+  --font-heading: 'JetBrains Mono', 'Courier New', monospace;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --accent: #0066ff;
+  --radius: 2px;
+}
+
+:root[data-side="creative"] {
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lora', Georgia, serif;
+  --font-mono: 'Courier New', monospace;
+  --accent: #8B4513;
+  --radius: 8px;
+}
+
+/* === Reset === */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === Body === */
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}

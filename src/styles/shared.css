@@ -1,0 +1,89 @@
+/* === Theme toggle === */
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.theme-toggle:hover {
+  opacity: 0.7;
+}
+
+/* === Social links === */
+.social-links {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.social-link {
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+:root[data-theme="dark"] .social-link {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+:root[data-theme="dark"] .social-link svg {
+  fill: #000000;
+}
+
+:root[data-theme="light"] .social-link {
+  background-color: transparent;
+  color: var(--text);
+}
+
+:root[data-theme="light"] .social-link svg {
+  fill: var(--text);
+}
+
+.social-link:hover {
+  opacity: 0.7;
+}
+
+/* === Placeholder page === */
+.placeholder-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 50vh;
+  font-family: var(--font-mono);
+}
+
+.placeholder-page h1 {
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+.placeholder-page p {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .social-links {
+    gap: 1.5rem;
+  }
+
+  .social-link {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}

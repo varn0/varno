@@ -1,0 +1,162 @@
+/* === Tech side layout === */
+[data-side="tech"] .tech-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-side="tech"] .tech-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  font-family: var(--font-mono);
+}
+
+[data-side="tech"] .tech-nav {
+  display: flex;
+  gap: 2rem;
+}
+
+[data-side="tech"] .tech-nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s ease;
+}
+
+[data-side="tech"] .tech-nav a:hover,
+[data-side="tech"] .tech-nav a.active {
+  opacity: 0.6;
+}
+
+[data-side="tech"] .tech-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* === Tech Home === */
+.tech-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.profile-picture {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+
+.profile-name {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: normal;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+/* === Micro CV === */
+.micro-cv {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.micro-cv-entry {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.micro-cv-years {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  min-width: 7rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.micro-cv-icons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.micro-cv-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.micro-cv-icon:hover {
+  opacity: 1;
+}
+
+.micro-cv-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--text);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  [data-side="tech"] .tech-header {
+    padding: 1rem 1.5rem;
+  }
+
+  [data-side="tech"] .tech-nav {
+    gap: 1.25rem;
+  }
+
+  .profile-section {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .profile-picture {
+    width: 150px;
+    height: 150px;
+  }
+
+  .profile-name {
+    font-size: 1.5rem;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .micro-cv-entry {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .micro-cv-years {
+    text-align: left;
+  }
+}
