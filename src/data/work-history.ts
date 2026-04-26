@@ -49,26 +49,30 @@ export const roles: Role[] = [
     ],
     stories: [
       {
-        title: 'The CloudFront Signed URL Mystery',
+        title: 'What I Learned About Long-Lived Infrastructure',
         paragraphs: [
-          'During the preparation of a major release, we deployed changes into staging and almost immediately the application started failing when trying to download assets from S3 through CloudFront. Every request returned a 403, pointing to an authorization problem rather than a functional bug. What made it confusing was that nothing relevant had changed in the application code, especially not in the Lambda responsible for generating the signed URLs.',
-          'After ruling out recent code changes, I shifted focus to the infrastructure. The CloudFront distribution had just been recreated as part of the deployment, and I noticed the previous one had been in place for several years. I extracted the TypeScript logic responsible for generating signed URLs and tested it independently against both staging and production behaviors, reproducing the failure outside the full system.',
-          'Digging into the AWS documentation, I found a subtle but critical detail: the signature must use a URL-safe variant of Base64 encoding. Our implementation still contained standard Base64 characters, including the forward slash. The older CloudFront distribution had been more permissive; the newly created one enforced the correct encoding strictly.',
-          'Once I updated the signing logic to replace the forward slash with the expected URL-safe character, the 403 errors disappeared. The root cause was not a logic error in the authorization itself, but a mismatch between legacy behavior and current platform requirements — exposed by recreating a long-lived infrastructure component.',
+          'A staging deployment triggered 403 errors on CloudFront-served assets. Nothing had changed in the application code — the signed URL generation logic was identical. The puzzle was why the same code suddenly stopped working.',
+          'My debugging approach was to isolate variables: I extracted the signing logic and tested it independently against both the old and new CloudFront distributions. This narrowed the problem from "the whole system is broken" to "the signature format is rejected by the new distribution."',
+          'The root cause turned out to be a subtle encoding detail in the AWS documentation: CloudFront signatures require URL-safe Base64 encoding. The older distribution had tolerated standard Base64 characters, but the newly created one enforced the spec strictly. A single forward slash in the encoded signature was enough to invalidate it.',
+          'The takeaway: long-lived infrastructure components can silently accumulate assumptions. When they are recreated, the gap between what the code assumes and what the platform currently requires becomes visible. Since then, I treat any infrastructure recreation as a potential behavior change, not just a state reset.',
         ],
       },
       {
-        title: 'The Accidental Production Deploy',
+        title: 'Applying SRE Principles After a Production Incident',
         paragraphs: [
-          'A senior developer noticed a minor version mismatch in the platform and attempted to fix it by deploying directly to production. The deployment pushed all pending staging changes into production, and the developer did not know how to revert.',
-          'The root cause was not technical — GitLab\'s ownership permissions allowed anyone with the subsidiary owner role to trigger production deployments. After the incident, I implemented GitLab protected environment rules restricting production deployments to a whitelist of specific users, replacing the implicit trust in role-based permissions.',
+          'An unplanned production deployment pushed unreleased staging changes into the live environment. The immediate problem was resolved quickly, but the more interesting question was: how did the deployment pipeline allow this in the first place?',
+          'I ran a blameless post-mortem following SRE principles — focusing on the system, not the individual. The analysis revealed that GitLab\'s default role-based permissions granted deployment access far more broadly than intended. The platform\'s permission model didn\'t match the team\'s actual deployment process.',
+          'The fix had two layers. First, I implemented GitLab protected environment rules to restrict production deployments to an explicit allowlist, closing the permission gap. Second, I documented a step-by-step deployment runbook with clear role assignments — who initiates, who approves, who monitors — so that the process was no longer implicit knowledge.',
+          'This experience shaped how I think about access control: permissions should encode your deployment process, not just your org chart. And post-mortems are most valuable when they lead to systemic changes, not just individual corrections.',
         ],
       },
       {
-        title: 'Extracting a 2GB File from a Docker Image',
+        title: 'Choosing the Right Storage Pattern for Large Files',
         paragraphs: [
-          'A 2GB coordinate file used for point cloud processing was embedded inside a Docker image, making it bloated and slow to pull. For local development, I mounted the file as a volume in Docker Compose — faster builds, no re-downloading on every image change.',
-          'For production, I moved the file to EFS. The choice of EFS over S3 was driven by the access pattern: processing tasks ran on dynamically spawned EC2 instances and needed the file available as a mounted filesystem, not as an object to download. EFS could be mounted simultaneously on every instance at launch with no application-level download logic, no caching layer, and no change to the processing code that expected a local file path.',
+          'A 2GB coordinate file needed for point cloud processing was embedded inside a Docker image. Every image pull downloaded the full 2GB, even when only application code had changed. The question was not just "where should this file live?" but "what access pattern does the consuming code expect?"',
+          'For local development, Docker Compose volume mounts were the simplest solution — the file stays on the host, builds are fast, and developers never re-download it.',
+          'For production, I evaluated S3 vs EFS. S3 would have required the application to download the file at startup or implement a caching layer — both changes to code that expected a local file path. EFS could be mounted as a filesystem on every EC2 instance simultaneously, with no application changes required. The access pattern drove the architecture decision: when code expects a file path, give it a filesystem, not an API.',
+          'This was a useful lesson in infrastructure design: the right storage service depends on the consumer\'s interface, not just the data\'s size or access frequency.',
         ],
       },
     ],
