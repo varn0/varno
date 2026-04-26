@@ -34,7 +34,7 @@
 [data-side="tech"] .tech-main {
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 2rem;
 }
@@ -122,6 +122,116 @@
   width: 100%;
   height: 100%;
   fill: var(--text);
+}
+
+/* === CV Page === */
+.cv-page {
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem 0 4rem;
+}
+
+.cv-page-title {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+  margin-bottom: 3rem;
+}
+
+.cv-role {
+  margin-bottom: 2.5rem;
+}
+
+.cv-role-header {
+  margin-bottom: 1rem;
+}
+
+.cv-role-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.cv-role-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.cv-bullets {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cv-bullet {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.cv-bullet::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+}
+
+.cv-story {
+  margin-top: 1.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
+  opacity: 0.85;
+}
+
+.cv-story-title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.cv-story p {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+
+.cv-story p:last-child {
+  margin-bottom: 0;
+}
+
+.cv-section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  opacity: 0.2;
+  margin: 2.5rem 0;
+}
+
+.cv-education {
+  margin-top: 1rem;
+}
+
+.cv-education-entry {
+  margin-bottom: 1rem;
+}
+
+.cv-education-degree {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.cv-education-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
 }
 
 /* === Responsive === */
