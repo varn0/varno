@@ -38,7 +38,6 @@ export function BlogPost() {
 
   return (
     <div className="blog-post-page">
-      <Link to="/blog" className="blog-back-link">&larr; Back to blog</Link>
       <article className="blog-post">
         <header className="blog-post-header">
           <h1 className="blog-post-title">{data.title}</h1>
