@@ -33,7 +33,6 @@ export function BlogIndex() {
   if (loading) {
     return (
       <div className="blog-page">
-        <h2 className="blog-page-title">Blog</h2>
         <p className="blog-loading">Loading...</p>
       </div>
     )
@@ -41,7 +40,6 @@ export function BlogIndex() {
 
   return (
     <div className="blog-page">
-      <h2 className="blog-page-title">Blog</h2>
       <div className="blog-list">
         {posts.map(post => (
           <BlogCard key={post.slug} post={post} />
