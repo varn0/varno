@@ -75,7 +75,7 @@ export const timelineEntries: TimelineEntry[] = [
     label: '2013–2019',
     icons: [
       { slug: 'proxmox', label: 'Proxmox', hex: 'E57000' },
-      { slug: 'vsphere', label: 'ESXi/vSphere', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vsphere/vsphere-original.svg' },
+      { slug: 'vmware', label: 'ESXi', hex: '607078', darkHex: 'AABBCC', wide: true },
       { slug: 'pfsense', label: 'pfSense', hex: '212121', darkHex: 'CCCCCC' },
       { slug: 'cisco', label: 'Cisco', hex: '1BA0D7', darkHex: '49D0FF', wide: true },
     ],
