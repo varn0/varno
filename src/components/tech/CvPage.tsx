@@ -38,7 +38,7 @@ function RoleSection({ role }: { role: Role }) {
 export function CvPage() {
   return (
     <div className="cv-page">
-      <h2 className="cv-page-title">Work History</h2>
+      <h2 className="cv-page-title" style={{ textAlign: 'center' }}>Work Stories</h2>
       {roles.map((role, i) => (
         <RoleSection key={i} role={role} />
       ))}
