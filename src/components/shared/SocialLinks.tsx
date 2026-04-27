@@ -4,8 +4,8 @@ import {
   RiTwitterXFill,
   RiLinkedinBoxLine,
   RiLinkedinBoxFill,
-  RiMediumLine,
-  RiMediumFill,
+  RiGitlabLine,
+  RiGitlabFill,
   RiGithubLine,
   RiGithubFill,
 } from '@remixicon/react'
@@ -19,28 +19,28 @@ interface SocialItem {
 
 const socials: SocialItem[] = [
   {
-    href: 'https://x.com/ajanerom',
-    label: 'X (Twitter)',
-    LineIcon: RiTwitterXLine,
-    FillIcon: RiTwitterXFill,
-  },
-  {
     href: 'https://www.linkedin.com/in/ajanerom-devops',
     label: 'LinkedIn',
     LineIcon: RiLinkedinBoxLine,
     FillIcon: RiLinkedinBoxFill,
   },
   {
-    href: 'https://ajanerom.medium.com',
-    label: 'Medium',
-    LineIcon: RiMediumLine,
-    FillIcon: RiMediumFill,
-  },
-  {
     href: 'https://github.com/varn0',
     label: 'GitHub',
     LineIcon: RiGithubLine,
     FillIcon: RiGithubFill,
+  },
+  {
+    href: 'https://gitlab.com/ajanerom',
+    label: 'GitLab',
+    LineIcon: RiGitlabLine,
+    FillIcon: RiGitlabFill,
+  },
+  {
+    href: 'https://x.com/ajanerom',
+    label: 'X (Twitter)',
+    LineIcon: RiTwitterXLine,
+    FillIcon: RiTwitterXFill,
   },
 ]
 

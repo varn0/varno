@@ -7,8 +7,9 @@
 
 [data-side="tech"] .tech-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 2rem;
   padding: 1.5rem 2rem;
   font-family: var(--font-mono);
 }
@@ -44,36 +45,67 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 2.5rem;
+  gap: 3rem;
   width: 100%;
   max-width: 800px;
-  min-height: calc(100vh - 6rem);
+  padding: 2rem 0 4rem;
 }
 
 .profile-section {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1.25rem;
   width: 100%;
-  justify-content: center;
 }
 
 .profile-picture {
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--border);
-  flex-shrink: 0;
 }
 
 .profile-name {
   font-family: var(--font-heading);
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: normal;
-  letter-spacing: 0.1em;
-  white-space: nowrap;
+  letter-spacing: 0.05em;
+}
+
+/* === Projects === */
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.project-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: opacity 0.2s ease;
+}
+
+.project-row:hover {
+  opacity: 0.6;
+}
+
+.project-name {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  min-width: 7rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.project-description {
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 /* === Micro CV === */
@@ -435,20 +467,23 @@
     gap: 1.25rem;
   }
 
-  .profile-section {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
   .profile-picture {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
   }
 
   .profile-name {
-    font-size: 1.5rem;
-    white-space: normal;
-    text-align: center;
+    font-size: 1.35rem;
+  }
+
+  .project-row {
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .project-name {
+    text-align: left;
+    min-width: auto;
   }
 
   .micro-cv-entry {
