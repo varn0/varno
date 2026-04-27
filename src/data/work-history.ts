@@ -51,28 +51,19 @@ export const roles: Role[] = [
       {
         title: 'What I Learned About Long-Lived Infrastructure',
         paragraphs: [
-          'A staging deployment triggered 403 errors on CloudFront-served assets. Nothing had changed in the application code — the signed URL generation logic was identical. The puzzle was why the same code suddenly stopped working.',
-          'My debugging approach was to isolate variables: I extracted the signing logic and tested it independently against both the old and new CloudFront distributions. This narrowed the problem from "the whole system is broken" to "the signature format is rejected by the new distribution."',
-          'The root cause turned out to be a subtle encoding detail in the AWS documentation: CloudFront signatures require URL-safe Base64 encoding. The older distribution had tolerated standard Base64 characters, but the newly created one enforced the spec strictly. A single forward slash in the encoded signature was enough to invalidate it.',
-          'The takeaway: long-lived infrastructure components can silently accumulate assumptions. When they are recreated, the gap between what the code assumes and what the platform currently requires becomes visible. Since then, I treat any infrastructure recreation as a potential behavior change, not just a state reset.',
+          'A CloudFront distribution that hadn\'t been recreated in four years was silently tolerating non-compliant signed URL encoding. When it was finally recreated, the stricter enforcement broke every asset download. To find the root cause, I isolated the signing logic, created a fresh distribution, and reimplemented the feature strictly by the documentation — then diffed it against the existing code. The mismatch was a single character encoding detail. Lesson: when debugging legacy infrastructure, build the correct version from scratch and compare — don\'t try to reason backward from broken code.',
         ],
       },
       {
         title: 'Applying SRE Principles After a Production Incident',
         paragraphs: [
-          'An unplanned production deployment pushed unreleased staging changes into the live environment. The immediate problem was resolved quickly, but the more interesting question was: how did the deployment pipeline allow this in the first place?',
-          'I ran a blameless post-mortem following SRE principles — focusing on the system, not the individual. The analysis revealed that GitLab\'s default role-based permissions granted deployment access far more broadly than intended. The platform\'s permission model didn\'t match the team\'s actual deployment process.',
-          'The fix had two layers. First, I implemented GitLab protected environment rules to restrict production deployments to an explicit allowlist, closing the permission gap. Second, I documented a step-by-step deployment runbook with clear role assignments — who initiates, who approves, who monitors — so that the process was no longer implicit knowledge.',
-          'This experience shaped how I think about access control: permissions should encode your deployment process, not just your org chart. And post-mortems are most valuable when they lead to systemic changes, not just individual corrections.',
+          'GitLab\'s repository owner role grants deployment access by default — but not every owner should deploy to production. A blameless post-mortem led to implementing protected environment rules to compensate for the lack of granularity in GitLab\'s built-in permissions. Lesson: permissions should encode your deployment process, not just your org chart.',
         ],
       },
       {
         title: 'Choosing the Right Storage Pattern for Large Files',
         paragraphs: [
-          'A 2GB coordinate file needed for point cloud processing was embedded inside a Docker image. Every image pull downloaded the full 2GB, even when only application code had changed. The question was not just "where should this file live?" but "what access pattern does the consuming code expect?"',
-          'For local development, Docker Compose volume mounts were the simplest solution — the file stays on the host, builds are fast, and developers never re-download it.',
-          'For production, I evaluated S3 vs EFS. S3 would have required the application to download the file at startup or implement a caching layer — both changes to code that expected a local file path. EFS could be mounted as a filesystem on every EC2 instance simultaneously, with no application changes required. The access pattern drove the architecture decision: when code expects a file path, give it a filesystem, not an API.',
-          'This was a useful lesson in infrastructure design: the right storage service depends on the consumer\'s interface, not just the data\'s size or access frequency.',
+          'A 2GB file had lived inside a Docker image for so long that the slow pulls were just "how it works here." Questioning that small accepted inconvenience led to moving it to EFS — the right choice because the consuming code expected a file path, not an API. Lesson: the access pattern drives the storage decision, and sometimes the biggest wins come from fixing things everyone stopped noticing.',
         ],
       },
     ],
