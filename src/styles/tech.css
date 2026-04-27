@@ -98,7 +98,7 @@
   font-family: var(--font-mono);
   font-size: 0.8rem;
   font-weight: 700;
-  min-width: 7rem;
+  min-width: 8.5rem;
   text-align: right;
   flex-shrink: 0;
 }
@@ -126,7 +126,7 @@
   font-family: var(--font-mono);
   font-size: 0.8rem;
   color: var(--text-muted);
-  min-width: 7rem;
+  min-width: 8.5rem;
   text-align: right;
   flex-shrink: 0;
 }
