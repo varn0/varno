@@ -1,5 +1,9 @@
 [
   {
+    "slug": "modulith",
+    "file": "modulith.md"
+  },
+  {
     "slug": "sre-devops-platform",
     "file": "sre-devops-platform.md"
   },
