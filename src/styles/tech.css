@@ -245,8 +245,6 @@
 }
 
 .blog-card {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
   transition: opacity 0.2s ease;
 }
 
