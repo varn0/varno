@@ -10,9 +10,11 @@ function TechIconThemed(props: TimelineIcon) {
   const effectiveHex = isDark && props.darkHex ? props.darkHex : props.hex
   const iconSrc = props.src || `https://cdn.simpleicons.org/${props.slug}/${effectiveHex || '000000'}`
 
+  const className = props.wide ? 'micro-cv-icon micro-cv-icon--wide' : 'micro-cv-icon'
+
   return (
-    <span className="micro-cv-icon" title={props.label}>
-      <img src={iconSrc} alt={props.label} width={20} height={20} />
+    <span className={className} title={props.label}>
+      <img src={iconSrc} alt={props.label} width={props.wide ? 36 : 20} height={20} />
     </span>
   )
 }

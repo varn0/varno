@@ -4,6 +4,7 @@ export interface TimelineIcon {
   hex?: string
   darkHex?: string  // override color for dark mode
   src?: string      // custom icon URL (overrides CDN)
+  wide?: boolean    // true for wordmark logos that need extra width
 }
 
 export interface TimelineEntry {
@@ -74,9 +75,9 @@ export const timelineEntries: TimelineEntry[] = [
     label: '2013–2019',
     icons: [
       { slug: 'proxmox', label: 'Proxmox', hex: 'E57000' },
-      { slug: 'vmware', label: 'ESXi', hex: '607078', darkHex: 'AABBCC' },
+      { slug: 'vmware', label: 'ESXi', hex: '607078', darkHex: 'AABBCC', wide: true },
       { slug: 'pfsense', label: 'pfSense', hex: '212121', darkHex: 'CCCCCC' },
-      { slug: 'cisco', label: 'Cisco', hex: '1BA0D7', darkHex: '49D0FF' },
+      { slug: 'cisco', label: 'Cisco', hex: '1BA0D7', darkHex: '49D0FF', wide: true },
     ],
   },
   {
@@ -84,7 +85,7 @@ export const timelineEntries: TimelineEntry[] = [
     endYear: 2013,
     label: '2010–2013',
     icons: [
-      { slug: 'cisco', label: 'Cisco', hex: '1BA0D7', darkHex: '49D0FF' },
+      { slug: 'cisco', label: 'Cisco', hex: '1BA0D7', darkHex: '49D0FF', wide: true },
     ],
   },
 ]

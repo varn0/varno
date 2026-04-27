@@ -116,6 +116,10 @@
   justify-content: center;
 }
 
+.micro-cv-icon--wide {
+  width: 36px;
+}
+
 .micro-cv-icon:hover {
   opacity: 1;
 }
