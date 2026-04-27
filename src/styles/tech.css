@@ -43,11 +43,12 @@
 .tech-home {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
   width: 100%;
   max-width: 800px;
-  padding: 4rem 0;
+  min-height: calc(100vh - 6rem);
 }
 
 .profile-section {
@@ -55,103 +56,24 @@
   align-items: center;
   gap: 2rem;
   width: 100%;
+  justify-content: center;
 }
 
 .profile-picture {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--border);
   flex-shrink: 0;
 }
 
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .profile-name {
   font-family: var(--font-heading);
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: normal;
-  letter-spacing: 0.05em;
-}
-
-.profile-meta {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-}
-
-.profile-role {
-  color: var(--text-muted);
-}
-
-.profile-socials {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.profile-social-link {
-  color: var(--text-muted);
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.profile-social-link:hover {
-  opacity: 0.6;
-}
-
-/* === Home Sections === */
-.home-section {
-  width: 100%;
-}
-
-.home-section-title {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-weight: normal;
-  letter-spacing: 0.05em;
-  margin-bottom: 1rem;
-  color: var(--text-muted);
-}
-
-/* === Projects === */
-.projects-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.project-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 1rem 1.25rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  text-decoration: none;
-  color: var(--text);
-  transition: opacity 0.2s ease;
-}
-
-.project-card:hover {
-  opacity: 0.7;
-}
-
-.project-name {
-  font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-weight: 700;
-}
-
-.project-description {
-  font-size: 0.8rem;
-  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
 }
 
 /* === Micro CV === */
@@ -515,27 +437,18 @@
 
   .profile-section {
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 
   .profile-picture {
-    width: 120px;
-    height: 120px;
-  }
-
-  .profile-info {
-    align-items: center;
+    width: 150px;
+    height: 150px;
   }
 
   .profile-name {
-    font-size: 1.35rem;
+    font-size: 1.5rem;
+    white-space: normal;
     text-align: center;
-  }
-
-  .profile-meta {
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: center;
   }
 
   .micro-cv-entry {
