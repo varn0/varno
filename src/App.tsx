@@ -4,6 +4,7 @@ import { TechLayout } from './components/tech/TechLayout'
 import { TechHome } from './components/tech/TechHome'
 import { CvPage } from './components/tech/CvPage'
 import { BlogIndex } from './components/tech/BlogIndex'
+import { BlogPost } from './components/tech/BlogPost'
 
 function App() {
   useSide()
@@ -14,6 +15,7 @@ function App() {
         <Route index element={<TechHome />} />
         <Route path="cv" element={<CvPage />} />
         <Route path="blog" element={<BlogIndex />} />
+        <Route path="blog/:slug" element={<BlogPost />} />
       </Route>
     </Routes>
   )
