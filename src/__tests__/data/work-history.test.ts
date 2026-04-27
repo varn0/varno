@@ -7,11 +7,11 @@ describe('work-history data', () => {
     }
   })
 
-  it('every role has a title, company, and at least one bullet', () => {
+  it('every role has a title, company, and summary', () => {
     for (const role of roles) {
       expect(role.title).toBeTruthy()
       expect(role.company).toBeTruthy()
-      expect(role.bullets.length).toBeGreaterThan(0)
+      expect(role.summary).toBeTruthy()
     }
   })
 

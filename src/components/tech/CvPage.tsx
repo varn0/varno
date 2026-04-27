@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { roles, education } from '../../data/work-history'
 import type { Role, Story } from '../../data/work-history'
 
@@ -13,24 +14,36 @@ function StoryBlock({ story }: { story: Story }) {
 }
 
 function RoleSection({ role }: { role: Role }) {
+  const [open, setOpen] = useState(false)
+  const hasContent = role.stories.length > 0
+
   return (
     <section className="cv-role">
-      <div className="cv-role-header">
-        <h3 className="cv-role-title">
-          {role.title} — {role.company}
-        </h3>
-        <div className="cv-role-meta">
-          {role.period} · {role.location}
+      <button
+        className={`cv-role-header ${hasContent ? 'cv-role-header--expandable' : ''} ${open ? 'cv-role-header--open' : ''}`}
+        onClick={() => hasContent && setOpen(!open)}
+        disabled={!hasContent}
+      >
+        <div>
+          <h3 className="cv-role-title">
+            {role.title} — {role.company}
+          </h3>
+          <div className="cv-role-meta">
+            {role.period} · {role.location}
+          </div>
         </div>
-      </div>
-      <ul className="cv-bullets">
-        {role.bullets.map((bullet, i) => (
-          <li key={i} className="cv-bullet">{bullet}</li>
-        ))}
-      </ul>
-      {role.stories.map((story, i) => (
-        <StoryBlock key={i} story={story} />
-      ))}
+        {hasContent && (
+          <span className="cv-role-toggle">{open ? '−' : '+'}</span>
+        )}
+      </button>
+      <p className="cv-summary">{role.summary}</p>
+      {open && (
+        <div className="cv-role-expanded">
+          {role.stories.map((story, i) => (
+            <StoryBlock key={i} story={story} />
+          ))}
+        </div>
+      )}
     </section>
   )
 }
@@ -43,7 +56,6 @@ export function CvPage() {
         <RoleSection key={i} role={role} />
       ))}
       <hr className="cv-section-divider" />
-      <h2 className="cv-page-title">Education</h2>
       <div className="cv-education">
         {education.map((entry, i) => (
           <div key={i} className="cv-education-entry">

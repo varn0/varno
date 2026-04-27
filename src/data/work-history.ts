@@ -9,7 +9,7 @@ export interface Role {
   startYear: number
   period: string
   location: string
-  bullets: string[]
+  summary: string
   stories: Story[]
 }
 
@@ -26,11 +26,18 @@ export const roles: Role[] = [
     startYear: 2025,
     period: 'Jan 2025 – Present',
     location: 'Remote',
-    bullets: [
-      'Built two products in 14 months: a SaaS platform (React, FastAPI, GCP Cloud Functions, Pub/Sub) and a desktop application (Tauri, React, FastAPI), pivoting from cloud to desktop in weeks.',
-      'Own the full technical and product roadmap for CucoStudio, a video creation platform leveraging Whisper and Chatterbox for transcription and voice cloning.',
+    summary: 'Built two products in 14 months — a SaaS platform and a desktop app — and own the full technical and product roadmap for CucoStudio, a video creation platform.',
+    stories: [
+      {
+        title: 'Why Hexagonal Architecture Saved the Pivot',
+        paragraphs: [
+          'CucoStudio started as a SaaS platform: React frontend, FastAPI backend, GCP Cloud Functions, Pub/Sub for async jobs, and Firestore as the database. It worked. Then we decided to pivot to a desktop application with Tauri.',
+          'That pivot could have been a rewrite. Instead, it took weeks — because we had built the backend with hexagonal architecture from the start. The application logic talked to the database through ports (interfaces). Firestore was just an adapter behind that port.',
+          'When we moved to desktop, I swapped the Firestore adapter for a SQLite adapter. The application logic didn\'t change. The business rules didn\'t change. I just wrote a new adapter that spoke SQL instead of NoSQL, plugged it in, and everything worked.',
+          'The lesson wasn\'t "hexagonal architecture is great" — it\'s that architectural discipline pays off exactly when you need to move fast. The pivot felt easy precisely because we\'d invested in that separation upfront.',
+        ],
+      },
     ],
-    stories: [],
   },
   {
     title: 'Senior DevOps Engineer, Team Lead',
@@ -38,15 +45,7 @@ export const roles: Role[] = [
     startYear: 2023,
     period: 'Sep 2023 – Jan 2025',
     location: 'Valencia, Spain',
-    bullets: [
-      'Reduced cycle time on the infrastructure repository from ~2 hours to ~20 minutes by eliminating redundant Security Groups and VPCs, consolidating and reducing ECS clusters, across four AWS environments.',
-      'Reduced infrastructure costs (~8%) by replacing public IPs with NAT gateways.',
-      'Implemented corporate security compliance in collaboration with Topcon\'s Global Security Team (TGST).',
-      'Architected and implemented an EKS + Karpenter solution for self-hosted GitLab runners to match high compute demand during release weeks.',
-      'Coordinated three teams across timezones (California/TGST – Valencia/TM – Tokyo/Topcon HQ) to create a secure connection between TM\'s and Topcon HQ\'s Ops infrastructure.',
-      'Led two engineers; performed code reviews and mentoring while contributing individually.',
-      'Built a DRP from scratch across four AWS environments, achieving ~1 h RTO and ~0–5 min RPO.',
-    ],
+    summary: 'Led infrastructure across four AWS environments, cut cycle times from 2 hours to 20 minutes, coordinated teams across three timezones, and built a DRP from scratch.',
     stories: [
       {
         title: 'What I Learned About Long-Lived Infrastructure',
@@ -74,10 +73,7 @@ export const roles: Role[] = [
     startYear: 2022,
     period: 'Mar 2022 – Oct 2023',
     location: 'Valencia, Spain',
-    bullets: [
-      'Created a single source of truth for component versions across all environments through a custom manifest-based system built with Python over GitLab CI/CD. This system gave ownership of deployments to PMs and developers.',
-      'Managed a self-hosted GitLab. Implemented custom GitOps to deploy GitLab configuration. Hardened GitLab\'s setup and underlying infrastructure.',
-    ],
+    summary: 'Built a manifest-based deployment system that gave PMs and developers ownership of their releases, and hardened a self-hosted GitLab instance with custom GitOps.',
     stories: [],
   },
   {
@@ -86,40 +82,25 @@ export const roles: Role[] = [
     startYear: 2021,
     period: 'Mar 2021 – Oct 2021',
     location: 'Remote',
-    bullets: [
-      'Deployed and troubleshot web applications on Kubernetes with Istio service mesh and Tetrate Service Bridge (TSB) on GCP, AWS, and Azure.',
-      'Collaborated on the creation of a Terraform plugin for TSB.',
-      'Built GitLab CI/CD pipelines for Spring Boot microservices.',
-    ],
+    summary: 'Worked with Kubernetes, Istio, and Tetrate Service Bridge across three clouds (GCP, AWS, Azure). Collaborated on a Terraform plugin for TSB and built CI/CD pipelines for Spring Boot microservices.',
     stories: [],
   },
   {
-    title: 'Senior System & Network Administrator, DevOps',
+    title: 'Senior Sysadmin & DevOps',
     company: 'Pyxel Solutions',
     startYear: 2019,
     period: 'Sep 2019 – Mar 2021',
     location: 'Havana, Cuba',
-    bullets: [
-      'Migrated on-premise systems to OVH cloud. Self-hosted GitLab instance, runners, and staging environment serving ~10 WordPress sites.',
-      'Reduced user feedback cycle from 3–4 days to 1 day by automating deployments to staging. GitLab CI/CD pipelines and Docker Swarm.',
-      'Automated self-hosted GitLab instance backup system using Bash scripts.',
-      'Orchestrated automated DAST using OWASP ZAP to identify and mitigate critical vulnerabilities (XSS, SQLi, Broken Auth) within the SDLC.',
-      'Containerized NestJS, Python, Angular, and PHP applications with Docker for easier distribution to clients.',
-    ],
+    summary: 'Migrated on-prem to OVH cloud, cut the user feedback cycle from 3–4 days to 1 day by automating staging deployments, and introduced DAST scanning into the SDLC with OWASP ZAP.',
     stories: [],
   },
   {
-    title: 'Senior System & Network Administrator',
-    company: 'Ministry of Foreign Trade and Foreign Investment',
+    title: 'Senior Sysadmin',
+    company: 'Ministry of Foreign Trade',
     startYear: 2013,
     period: 'Sep 2013 – Jul 2019',
     location: 'Havana, Cuba',
-    bullets: [
-      'Led a full on-prem datacenter redesign: 20 physical servers for ~1,200 users, migrated from ESXi to Proxmox, no migration downtime. Optimized hardware usage so two physical servers were freed for R&D labs and replacement.',
-      'Enforced security policy via pfSense and Cisco ASA firewalls; implemented SIEM-based management.',
-      'Integrated Cisco Secure ACS with Active Directory for centralized authentication across all network devices.',
-      'Managed LAN/WAN environments using Cisco, Huawei, and Netgear hardware.',
-    ],
+    summary: 'Redesigned a full on-prem datacenter — 20 physical servers, ~1,200 users, migrated from ESXi to Proxmox with zero downtime. Managed security (pfSense, Cisco ASA) and LAN/WAN infrastructure.',
     stories: [],
   },
   {
@@ -128,10 +109,7 @@ export const roles: Role[] = [
     startYear: 2010,
     period: '2010 – 2020',
     location: 'Havana, Cuba',
-    bullets: [
-      'Lecturer at CUJAE (2018–2020) — Taught Computer Networks II & III.',
-      'Intern at Datacimex (2010–2013) — Designed a national IP/MPLS platform proposal for FINCIMEX with PCI-DSS compliance; configured Cisco routers and ASA firewalls.',
-    ],
+    summary: 'Taught Computer Networks at CUJAE (2018–2020). Interned at Datacimex (2010–2013) designing a national IP/MPLS platform with PCI-DSS compliance.',
     stories: [],
   },
 ]
