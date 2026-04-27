@@ -2,6 +2,8 @@ export interface TimelineIcon {
   slug: string
   label: string
   hex?: string
+  darkHex?: string  // override color for dark mode
+  src?: string      // custom icon URL (overrides CDN)
 }
 
 export interface TimelineEntry {
@@ -29,14 +31,14 @@ export const timelineEntries: TimelineEntry[] = [
     endYear: 2024,
     label: '2022–2024',
     icons: [
-      { slug: 'amazonaws', label: 'AWS', hex: '232F3E' },
+      { slug: 'aws', label: 'AWS', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg' },
       { slug: 'terraform', label: 'Terraform', hex: '844FBA' },
       { slug: 'ansible', label: 'Ansible', hex: 'EE0000' },
       { slug: 'docker', label: 'Docker', hex: '2496ED' },
       { slug: 'gitlab', label: 'GitLab', hex: 'FC6D26' },
       { slug: 'python', label: 'Python', hex: '3776AB' },
       { slug: 'kubernetes', label: 'Kubernetes', hex: '326CE5' },
-      { slug: 'helm', label: 'Helm', hex: '0F1689' },
+      { slug: 'helm', label: 'Helm', hex: '0F1689', darkHex: '8B9FFF' },
     ],
   },
   {
@@ -48,8 +50,8 @@ export const timelineEntries: TimelineEntry[] = [
       { slug: 'istio', label: 'Istio', hex: '466BB0' },
       { slug: 'terraform', label: 'Terraform', hex: '844FBA' },
       { slug: 'googlecloud', label: 'GCP', hex: '4285F4' },
-      { slug: 'amazonaws', label: 'AWS', hex: '232F3E' },
-      { slug: 'microsoftazure', label: 'Azure', hex: '0078D4' },
+      { slug: 'aws', label: 'AWS', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg' },
+      { slug: 'azure', label: 'Azure', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg' },
       { slug: 'springboot', label: 'Spring Boot', hex: '6DB33F' },
       { slug: 'gitlab', label: 'GitLab', hex: 'FC6D26' },
     ],
@@ -61,7 +63,7 @@ export const timelineEntries: TimelineEntry[] = [
     icons: [
       { slug: 'docker', label: 'Docker', hex: '2496ED' },
       { slug: 'gitlab', label: 'GitLab', hex: 'FC6D26' },
-      { slug: 'ovh', label: 'OVH', hex: '123F6D' },
+      { slug: 'ovh', label: 'OVH', hex: '123F6D', darkHex: '4A8FCD' },
       { slug: 'gnubash', label: 'Bash', hex: '4EAA25' },
       { slug: 'python', label: 'Python', hex: '3776AB' },
     ],
@@ -72,9 +74,9 @@ export const timelineEntries: TimelineEntry[] = [
     label: '2013–2019',
     icons: [
       { slug: 'proxmox', label: 'Proxmox', hex: 'E57000' },
-      { slug: 'vmware', label: 'ESXi', hex: '607078' },
-      { slug: 'pfsense', label: 'pfSense', hex: '212121' },
-      { slug: 'cisco', label: 'Cisco', hex: '1BA0D7' },
+      { slug: 'vmware', label: 'ESXi', hex: '607078', darkHex: 'AABBCC' },
+      { slug: 'pfsense', label: 'pfSense', hex: '212121', darkHex: 'CCCCCC' },
+      { slug: 'cisco', label: 'Cisco', hex: '1BA0D7', darkHex: '49D0FF' },
     ],
   },
   {
@@ -82,7 +84,7 @@ export const timelineEntries: TimelineEntry[] = [
     endYear: 2013,
     label: '2010–2013',
     icons: [
-      { slug: 'cisco', label: 'Cisco', hex: '1BA0D7' },
+      { slug: 'cisco', label: 'Cisco', hex: '1BA0D7', darkHex: '49D0FF' },
     ],
   },
 ]

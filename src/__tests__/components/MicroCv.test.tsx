@@ -1,6 +1,23 @@
 import { render, screen } from '@testing-library/react'
 import { MicroCv } from '../../components/tech/MicroCv'
 
+// useTheme uses matchMedia which jsdom doesn't fully support
+beforeAll(() => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: vi.fn().mockImplementation((query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })),
+  })
+})
+
 describe('MicroCv', () => {
   it('renders all 6 time periods', () => {
     render(<MicroCv />)
