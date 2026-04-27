@@ -400,6 +400,13 @@
   text-decoration: underline;
 }
 
+.blog-post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  margin: 1rem 0;
+}
+
 /* === Responsive === */
 @media (max-width: 768px) {
   [data-side="tech"] .tech-header {
