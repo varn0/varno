@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { MicroCv } from '../../components/tech/MicroCv'
 
-// useTheme uses matchMedia which jsdom doesn't fully support
 beforeAll(() => {
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
@@ -37,8 +36,8 @@ describe('MicroCv', () => {
 
   it('renders most recent period first', () => {
     render(<MicroCv />)
-    const years = screen.getAllByTestId('micro-cv-years')
-    expect(years[0]).toHaveTextContent('2025–')
-    expect(years[years.length - 1]).toHaveTextContent('2010–2013')
+    const labels = screen.getAllByText(/^\d{4}/)
+    expect(labels[0]).toHaveTextContent('2025–')
+    expect(labels[labels.length - 1]).toHaveTextContent('2010–2013')
   })
 })

@@ -1,5 +1,5 @@
-import profilePicture from '../../assets/profile-picture.jpeg'
-import { SocialLinks } from '../shared/SocialLinks'
+import { ProfileCard } from '../shared/ProfileCard'
+import { TwoColumnSection, TwoColumnRow, TwoColumnSpacer } from '../shared/TwoColumnSection'
 import { MicroCv } from './MicroCv'
 
 const projects = [
@@ -11,26 +11,18 @@ const projects = [
 export function TechHome() {
   return (
     <div className="tech-home">
-      <div className="profile-section">
-        <img
-          src={profilePicture}
-          alt="Alexis Janero Moliner"
-          className="profile-picture"
-        />
-        <h1 className="profile-name">Alexis Janero Moliner</h1>
-        <SocialLinks />
-      </div>
-
-      <div className="projects-list">
+      <ProfileCard />
+      <TwoColumnSection>
         {projects.map(({ name, url, description }) => (
-          <a key={name} href={url} target="_blank" rel="noopener noreferrer" className="project-row">
-            <span className="project-name">{name}</span>
-            <span className="project-description">{description}</span>
+          <a key={name} href={url} target="_blank" rel="noopener noreferrer" className="two-col-link">
+            <TwoColumnRow label={name} bold>
+              {description}
+            </TwoColumnRow>
           </a>
         ))}
-      </div>
-
-      <MicroCv />
+        <TwoColumnSpacer />
+        <MicroCv />
+      </TwoColumnSection>
     </div>
   )
 }
