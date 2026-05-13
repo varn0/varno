@@ -127,39 +127,7 @@
 }
 
 .cv-role-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-  background: none;
-  border: none;
-  color: var(--text);
-  text-align: left;
-  padding: 0;
-  font: inherit;
   margin-bottom: 0.75rem;
-}
-
-.cv-role-header--expandable {
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.cv-role-header--expandable:hover {
-  opacity: 0.7;
-}
-
-.cv-role-header:disabled {
-  cursor: default;
-}
-
-.cv-role-toggle {
-  font-family: var(--font-mono);
-  font-size: 1.2rem;
-  color: var(--text-muted);
-  flex-shrink: 0;
-  margin-left: 1rem;
-  line-height: 1;
 }
 
 .cv-role-title {
@@ -180,10 +148,6 @@
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--text-muted);
-}
-
-.cv-role-expanded {
-  margin-top: 1rem;
 }
 
 .cv-story {
