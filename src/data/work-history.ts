@@ -62,7 +62,9 @@ export const roles: Role[] = [
       {
         title: 'Choosing the Right Storage Pattern for Large Files',
         paragraphs: [
-          'A 2GB file had lived inside a Docker image for so long that the slow pulls were just "how it works here." Questioning that small accepted inconvenience led to moving it to EFS — the right choice because the consuming code expected a file path, not an API. Lesson: the access pattern drives the storage decision, and sometimes the biggest wins come from fixing things everyone stopped noticing.',
+          'A 2GB coordinate file used for point cloud processing had been embedded inside a Docker image. The image was bloated and slow to pull. Nobody questioned it — it was just "how it works here."',
+          'For local development, I mounted the file as a volume in Docker Compose — faster builds, no re-downloading on every image change. For production, I moved it to EFS. The choice of EFS over S3 was driven by the access pattern: the processing tasks ran on dynamically spawned EC2 instances and needed the file available as a mounted filesystem, not as an object to download. EFS could be mounted simultaneously on every instance at launch with no application-level download logic, no caching layer, and no change to the processing code that expected a local file path.',
+          'Lesson: the access pattern drives the storage decision, and sometimes the biggest wins come from fixing things everyone stopped noticing.',
         ],
       },
     ],
@@ -83,7 +85,15 @@ export const roles: Role[] = [
     period: 'Mar 2021 – Oct 2021',
     location: 'Remote',
     summary: 'Worked with Kubernetes, Istio, and Tetrate Service Bridge across three clouds (GCP, AWS, Azure). Collaborated on a Terraform plugin for TSB and built CI/CD pipelines for Spring Boot microservices.',
-    stories: [],
+    stories: [
+      {
+        title: 'Learning to Communicate With Limited Time',
+        paragraphs: [
+          'The biggest learning here wasn\'t technical — it was communication. When you have just a few minutes a day with a client, do not get creative, ask. I have the tendency to overthink and sometimes even do it out loud. That\'s fine in some situations, but definitely not with someone who expects you to have the right answers all the time.',
+          'In these situations it\'s better to listen and ask questions so you can listen some more before saying anything. The lesson stuck: clarity and economy of words matter more than showing your thought process.',
+        ],
+      },
+    ],
   },
   {
     title: 'Senior Sysadmin & DevOps',

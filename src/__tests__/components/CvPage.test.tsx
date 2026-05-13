@@ -51,9 +51,10 @@ describe('CvPage', () => {
     expect(mobileNotesView).toBeInTheDocument()
 
     const groupLabels = document.querySelectorAll('.cv-notes-group-label')
-    expect(groupLabels.length).toBe(2)
+    expect(groupLabels.length).toBe(3)
     expect(groupLabels[0]).toHaveTextContent('SevenSoftware')
     expect(groupLabels[1]).toHaveTextContent('Topcon Mirage Technologies')
+    expect(groupLabels[2]).toHaveTextContent('GSoft Innovation')
   })
 
   it('adds cv-page--notes-visible class when toggled', async () => {
