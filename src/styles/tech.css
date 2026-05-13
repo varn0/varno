@@ -224,29 +224,6 @@
   color: var(--text-muted);
 }
 
-.cv-story {
-  margin-top: 1.5rem;
-  padding-left: 1rem;
-  border-left: 2px solid var(--border);
-  opacity: 0.85;
-}
-
-.cv-story-title {
-  font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-}
-
-.cv-story p {
-  font-size: 0.875rem;
-  line-height: 1.7;
-  margin-bottom: 0.75rem;
-}
-
-.cv-story p:last-child {
-  margin-bottom: 0;
-}
 
 .cv-section-divider {
   border: none;
