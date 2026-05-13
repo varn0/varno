@@ -46,20 +46,18 @@ function MobileNotesView() {
       {rolesWithStories.map((role, i) => (
         <div key={i} className="cv-notes-group">
           <div className="cv-notes-group-label">{role.company}</div>
-          <div className="cv-notes-column">
-            {role.stories.map((story, j) => (
-              <div key={j} className="cv-note">
-                <span className="cv-note-title">{story.title}</span>
-                {' — '}
-                {story.paragraphs.map((p, k) => (
-                  <span key={k}>
-                    {k > 0 && ' '}
-                    {p}
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
+          {role.stories.map((story, j) => (
+            <div key={j} className="cv-note">
+              <span className="cv-note-title">{story.title}</span>
+              {' — '}
+              {story.paragraphs.map((p, k) => (
+                <span key={k}>
+                  {k > 0 && ' '}
+                  {p}
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
       ))}
     </div>
@@ -71,6 +69,7 @@ export function CvPage() {
 
   return (
     <div className={`cv-page ${notesVisible ? 'cv-page--notes-visible' : ''}`}>
+      <p className="cv-subtitle">Notes from years of building and breaking infrastructure.</p>
       <button
         className="cv-notes-toggle"
         aria-pressed={notesVisible}
@@ -78,7 +77,6 @@ export function CvPage() {
       >
         {notesVisible ? 'HIDE PERSONAL NOTES' : 'SHOW PERSONAL NOTES'}
       </button>
-      <p className="cv-subtitle">Notes from years of building and breaking infrastructure.</p>
       {notesVisible && <MobileNotesView />}
       {roles.map((role, i) => (
         <RoleSection key={i} role={role} notesVisible={notesVisible} />
