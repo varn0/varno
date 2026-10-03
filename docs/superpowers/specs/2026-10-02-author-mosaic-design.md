@@ -48,10 +48,12 @@ Implemented with the existing stack — **Vite + React 18 + React Router v7 + Ty
 
 ### Navigation — the dog-ear
 
-- **`DogEar.tsx`** (`src/components/shared/`) — a tiny reusable component: `<Link to={to} className="dogear" aria-label={label} />`. No text/icon; it is drawn entirely in CSS as a folded page corner.
+- **`DogEar.tsx`** (`src/components/shared/`) — a reusable component: a `<Link to={to} className="dogear" aria-label={label}>` wrapping a small inline `<svg>`. The fold is drawn as **thin line art** (an outlined curled-corner `<path>`), not a filled block — so it reads as a delicate folded page corner on the plain (borderless) page, matching the minimal black/white aesthetic.
 - `TechLayout` renders `<DogEar to="/reading" ... />`, so the dog-ear appears on home/cv/blog (the discovery entry points).
 - `ReadingPage` renders a mirrored `<DogEar to="/" ... />` — the fold-back, and the only way back from the otherwise bare page.
-- **CSS (`.dogear` in `tech.css`)**: `position: fixed; right/bottom: 0;` a ~52px box clipped to the bottom-right triangle (`clip-path: polygon(100% 0, 0 100%, 100% 100%)`). A `linear-gradient(315deg, …)` shades the deep tip dark → a bright crease highlight at the fold edge; `filter: drop-shadow(-3px -3px …)` casts the lifted corner's shadow onto the page. `:hover` enlarges it (~74px) with a stronger shadow — the "lift". Theme-aware via `[data-theme="dark"] .dogear` (lighter grays on black). `:focus-visible` shows an accent outline. `clip-path` also limits the clickable/hover area to the visible triangle.
+- **SVG**: a single `.dogear-flap` path (`viewBox 0 0 40 40`) curves from the bottom edge up to a lifted tip and back to the right edge, closed along the diagonal crease — a curling corner. `fill: var(--bg)` (so the flap reads as the page's underside), `stroke: currentColor` thin, plus a subtle `drop-shadow` for lift.
+- **CSS (`.dogear` in `tech.css`)**: `position: fixed;` near `right/bottom: 0;` ~46px. `color: var(--text-muted)` drives the stroke via `currentColor`; on `:hover` it `transform: scale(1.18)` and darkens to `--text` (the "lift"). Theme-aware automatically (fill = `--bg`, stroke = theme text color). `:focus-visible` shows an accent outline. `prefers-reduced-motion` disables the scale transition.
+- **Theme on the bare page**: because `/reading` has no header, it has no `ThemeToggle` — and `useTheme()` (which applies the saved/system theme to `<html data-theme>`) only ran inside header/profile components. So `App` now also calls `useTheme()` (alongside `useSide()`), ensuring the chosen theme is applied on every route, including the bare `/reading`. Without this, `/reading` was stuck on the `data-theme="light"` hardcoded in `index.html`.
 
 ### Components
 
