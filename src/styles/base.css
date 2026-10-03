@@ -47,3 +47,13 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
   min-height: 100vh;
 }
+
+/* Hide the scrollbar (scrolling still works) */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
