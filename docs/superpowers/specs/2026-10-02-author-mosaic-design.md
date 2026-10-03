@@ -32,7 +32,7 @@ A hidden "back page" at `/reading` showing a mosaic of flippable cards — one p
 | Link targets | English Wikipedia where it exists; documented fallbacks otherwise (see "Link map rules") |
 | Flip trigger | Click/tap to flip (works identically on desktop and touch); back link tappable once flipped |
 | Flip exclusivity | Only one card is flipped at a time — opening a card closes the previously open one |
-| Columns | Exactly 3 equal-width columns; drop to 2 columns on narrow phones (≤ 480px) |
+| Layout | Masonry: exactly 3 equal-width columns (2 on phones ≤ 480px). Same column width, **variable card height** (each card keeps its image's natural aspect ratio — no cropping), cards pack vertically with no aligned rows |
 | Intro copy | None |
 
 ## Architecture
@@ -96,18 +96,18 @@ Every card links to the best available canonical page:
 New block in `src/styles/tech.css`, using existing CSS custom properties (`--bg`, `--text`, `--text-muted`, `--border`, `--accent`, `--radius`, `--font-heading`, `--font-mono`).
 
 - `.reading-page` — `width: 100%; max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 4rem;` (centres itself and carries horizontal padding, since the bare route has no `.tech-main` wrapper).
-- `.reading-grid` — `display: grid; grid-template-columns: repeat(3, 1fr); gap: ~0.75rem;`
-- `.author-card` — the flip container. Fixed `aspect-ratio: 3 / 4`; `perspective` on the grid/card; reset button styles (no default border/background/padding), `cursor: pointer`.
-- `.author-card-inner` — `position: relative; width/height: 100%; transition: transform 0.5s; transform-style: preserve-3d;` toggled to `transform: rotateY(180deg)` when flipped (via a `.is-flipped` class).
-- `.author-card-face` — `position: absolute; inset: 0; backface-visibility: hidden; border-radius: var(--radius); overflow: hidden;`
-- `.author-card-front img` — `width/height: 100%; object-fit: cover;`
-- `.author-card-back` — `transform: rotateY(180deg);` centered flex column; `background: var(--bg); border: 1px solid var(--border);` name in `--font-heading`, link in `--font-mono` muted with hover to `--text`.
-- Mobile: `@media (max-width: 480px) { .reading-grid { grid-template-columns: repeat(2, 1fr); } }`.
+- `.reading-grid` — **masonry via CSS multi-column**: `column-count: 3; column-gap: ~0.75rem;`. Fixed column width, variable card height, cards pack vertically with no aligned rows. (Column layout flows cards top-to-bottom per column, which is expected for a photo wall.)
+- `.author-card` — the flip container, one masonry item. `width: 100%; margin-bottom: 0.75rem; break-inside: avoid;` (keep a card whole within a column); `perspective`; `cursor: pointer`. **No fixed aspect-ratio** — the card's height follows its front image.
+- `.author-card-inner` — `position: relative; width: 100%; transition: transform 0.5s; transform-style: preserve-3d;` toggled to `transform: rotateY(180deg)` when flipped (via a `.is-flipped` class). Its height is set by the front face (in normal flow).
+- `.author-card-face` — `backface-visibility: hidden; border-radius: var(--radius); overflow: hidden;`
+- `.author-card-front img` — `width: 100%; height: auto; display: block;` → **natural aspect ratio, no cropping**. This is what gives each card its variable height.
+- `.author-card-back` — `position: absolute; inset: 0;` (overlays the front, matching its height) `transform: rotateY(180deg);` centered flex column; `background: var(--bg); border: 1px solid var(--border);` name in `--font-heading`, link in `--font-mono` muted with hover to `--text`.
+- Mobile: `@media (max-width: 480px) { .reading-grid { column-count: 2; } }`.
 - `prefers-reduced-motion`: disable the flip transition (instant state change) for users who request reduced motion.
 
 ### Book cover cards
 
-Four cards are book covers, not author portraits: *The Phoenix Project*, *The Egyptian*, *Martín Fierro*, *La Ciénaga de los Hipopótamos*. They render in the same 3:4 cell with `object-fit: cover` for grid consistency (covers may crop slightly — accepted). Their front has no portrait; the back shows the book title and the link per the Link map rules above. No separate component — a book is just a `ReadingEntry` whose `name` is a title.
+Four cards are book covers, not author portraits: *The Phoenix Project*, *The Egyptian*, *Martín Fierro*, *La Ciénaga de los Hipopótamos*. In the masonry layout they display at their natural aspect ratio like every other card, so covers are shown **in full, uncropped** (a landscape cover simply makes a shorter card). Their front has no portrait; the back shows the book title and the link per the Link map rules above. No separate component — a book is just a `ReadingEntry` whose `name` is a title.
 
 ## Error / edge handling
 
