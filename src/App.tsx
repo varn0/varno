@@ -5,6 +5,7 @@ import { TechHome } from './components/tech/TechHome'
 import { CvPage } from './components/tech/CvPage'
 import { BlogIndex } from './components/tech/BlogIndex'
 import { BlogPost } from './components/tech/BlogPost'
+import { ReadingPage } from './components/tech/ReadingPage'
 
 function App() {
   useSide()
@@ -16,6 +17,7 @@ function App() {
         <Route path="cv" element={<CvPage />} />
         <Route path="blog" element={<BlogIndex />} />
         <Route path="blog/:slug" element={<BlogPost />} />
+        <Route path="reading" element={<ReadingPage />} />
       </Route>
     </Routes>
   )
