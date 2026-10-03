@@ -1,22 +1,37 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { MemoryRouter } from 'react-router-dom'
 import { ReadingPage } from '../../components/tech/ReadingPage'
 import { reading } from '../../data/reading'
 
+function renderPage() {
+  return render(
+    <MemoryRouter>
+      <ReadingPage />
+    </MemoryRouter>,
+  )
+}
+
 describe('ReadingPage', () => {
   it('renders one card per reading entry', () => {
-    render(<ReadingPage />)
+    renderPage()
     expect(screen.getAllByRole('button')).toHaveLength(reading.length)
   })
 
   it('renders a card for a known author', () => {
-    render(<ReadingPage />)
+    renderPage()
     expect(screen.getByRole('button', { name: 'Jane Austen' })).toBeInTheDocument()
+  })
+
+  it('renders a dog-ear link back to the main page', () => {
+    renderPage()
+    const back = screen.getByRole('link', { name: 'Back to the main page' })
+    expect(back).toHaveAttribute('href', '/')
   })
 
   it('flips only one card at a time', async () => {
     const user = userEvent.setup()
-    render(<ReadingPage />)
+    renderPage()
     const first = screen.getByRole('button', { name: reading[0].name })
     const second = screen.getByRole('button', { name: reading[1].name })
 
@@ -31,7 +46,7 @@ describe('ReadingPage', () => {
 
   it('flips a card back when it is clicked again', async () => {
     const user = userEvent.setup()
-    render(<ReadingPage />)
+    renderPage()
     const card = screen.getByRole('button', { name: reading[0].name })
 
     await user.click(card)

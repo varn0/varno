@@ -12,7 +12,7 @@ A hidden "back page" at `/reading` showing a mosaic of flippable cards — one p
 
 - A 3-column mosaic of equal-width flip cards.
 - Front: author portrait. Back: name + Wikipedia link.
-- Reachable at `/reading` and via a subtle, understated footer link — not in the top nav.
+- Reachable at `/reading` and via a **dog-ear** (folded page corner) in the bottom-right — not in the top nav.
 - Match the site's existing minimal aesthetic and design tokens.
 - Work on desktop, tablet, and mobile, including touch (no hover dependency).
 
@@ -27,7 +27,8 @@ A hidden "back page" at `/reading` showing a mosaic of flippable cards — one p
 
 | Decision | Choice |
 |---|---|
-| Placement | Standalone **bare** route `/reading` — NO header and NO footer, just the mosaic. Reachable directly, and via the subtle footer link that appears on the *other* tech pages (home/cv/blog) |
+| Placement | Standalone **bare** route `/reading` — NO header and NO footer, just the mosaic. Reachable directly, and via a **dog-ear** (folded page corner, bottom-right) on the *other* tech pages (home/cv/blog) |
+| Navigation | A `DogEar` folded-corner link: on home/cv/blog it folds to `/reading`; a mirrored one on `/reading` folds back to `/` (the only way back from the bare page). Lifts/enlarges on hover. Replaces the earlier ✦ footer link |
 | Scope | All 31 images in `~/personal-docs/authors/` — 27 author portraits + 4 book covers — each its own card |
 | Link targets | English Wikipedia where it exists; documented fallbacks otherwise (see "Link map rules") |
 | Flip trigger | Click/tap to flip (works identically on desktop and touch); back link tappable once flipped |
@@ -45,14 +46,16 @@ Implemented with the existing stack — **Vite + React 18 + React Router v7 + Ty
 - Not added to `TechHeader` nav.
 - Because `.reading-page` no longer sits inside `.tech-main` (which centred it), it centres itself with `margin: 0 auto` and carries its own horizontal padding.
 
-### Discovery (footer link)
+### Navigation — the dog-ear
 
-- Add a minimal footer to `TechLayout` (`src/components/tech/TechLayout.tsx`) containing a single low-contrast link to `/reading`. Understated label (a small `✦` glyph). Styled with `--text-muted` and small font so it reads as an easter egg, not a nav item.
-- The footer renders on the tech-side pages that use `TechLayout` (home/cv/blog) — the discovery entry points. The `/reading` page itself is bare (outside `TechLayout`), so the footer does not appear there. Returning from `/reading` is via browser back.
+- **`DogEar.tsx`** (`src/components/shared/`) — a tiny reusable component: `<Link to={to} className="dogear" aria-label={label} />`. No text/icon; it is drawn entirely in CSS as a folded page corner.
+- `TechLayout` renders `<DogEar to="/reading" ... />`, so the dog-ear appears on home/cv/blog (the discovery entry points).
+- `ReadingPage` renders a mirrored `<DogEar to="/" ... />` — the fold-back, and the only way back from the otherwise bare page.
+- **CSS (`.dogear` in `tech.css`)**: `position: fixed; right/bottom: 0;` a ~52px box clipped to the bottom-right triangle (`clip-path: polygon(100% 0, 0 100%, 100% 100%)`). A `linear-gradient(315deg, …)` shades the deep tip dark → a bright crease highlight at the fold edge; `filter: drop-shadow(-3px -3px …)` casts the lifted corner's shadow onto the page. `:hover` enlarges it (~74px) with a stronger shadow — the "lift". Theme-aware via `[data-theme="dark"] .dogear` (lighter grays on black). `:focus-visible` shows an accent outline. `clip-path` also limits the clickable/hover area to the visible triangle.
 
 ### Components
 
-Under `src/components/tech/`:
+Under `src/components/tech/` (and `src/components/shared/` for `DogEar`):
 
 - **`ReadingPage.tsx`** — page wrapper and **owner of the flip state**. Holds `flippedKey: string | null` (the `image` of the open card, or `null`). Renders a `<div className="reading-page">` containing the grid, mapping over `reading` and rendering one `AuthorCard` per entry. For each card it passes `flipped={flippedKey === entry.image}` and an `onToggle` that sets `flippedKey` to that card's image (or back to `null` if it was already open). This centralised state is what enforces **one card flipped at a time**. No heading or intro text.
 - **`AuthorCard.tsx`** — one flip card. **Controlled** (holds no state of its own).

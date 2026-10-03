@@ -1,5 +1,6 @@
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { TechHeader } from './TechHeader'
+import { DogEar } from '../shared/DogEar'
 
 export function TechLayout() {
   return (
@@ -8,11 +9,7 @@ export function TechLayout() {
       <main className="tech-main">
         <Outlet />
       </main>
-      <footer className="tech-footer">
-        <Link to="/reading" className="tech-footer-link" aria-label="reading">
-          ✦
-        </Link>
-      </footer>
+      <DogEar to="/reading" label="Reading — authors and books I love" />
     </div>
   )
 }

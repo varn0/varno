@@ -531,23 +531,52 @@
   color: var(--text);
 }
 
-/* Subtle back-page footer link */
-[data-side="tech"] .tech-footer {
-  display: flex;
-  justify-content: center;
-  padding: 1.5rem;
+/* Dog-ear: a folded page corner, bottom-right, linking to the back page */
+.dogear {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 52px;
+  height: 52px;
+  z-index: 20;
+  /* bottom-right triangle: top-right, bottom-left, bottom-right */
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  /* deep tip in shadow -> bright crease highlight at the fold edge (~50%) */
+  background: linear-gradient(
+    315deg,
+    #9c9c9c 0%,
+    #c9c9c9 38%,
+    #f3f3f3 49%,
+    #ffffff 50%
+  );
+  filter: drop-shadow(-3px -3px 3px rgba(0, 0, 0, 0.22));
+  transition: width 0.22s ease, height 0.22s ease, filter 0.22s ease;
 }
 
-[data-side="tech"] .tech-footer-link {
-  color: var(--text-muted);
-  opacity: 0.4;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: opacity 0.2s ease;
+.dogear:hover {
+  width: 74px;
+  height: 74px;
+  filter: drop-shadow(-6px -6px 7px rgba(0, 0, 0, 0.3));
 }
 
-[data-side="tech"] .tech-footer-link:hover {
-  opacity: 1;
+.dogear:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+[data-theme="dark"] .dogear {
+  background: linear-gradient(
+    315deg,
+    #1c1c1c 0%,
+    #3a3a3a 38%,
+    #5f5f5f 49%,
+    #767676 50%
+  );
+  filter: drop-shadow(-3px -3px 4px rgba(0, 0, 0, 0.6));
+}
+
+[data-theme="dark"] .dogear:hover {
+  filter: drop-shadow(-6px -6px 8px rgba(0, 0, 0, 0.75));
 }
 
 @media (prefers-reduced-motion: reduce) {

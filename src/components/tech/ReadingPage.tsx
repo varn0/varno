@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { reading } from '../../data/reading'
 import { AuthorCard } from './AuthorCard'
+import { DogEar } from '../shared/DogEar'
 
 export function ReadingPage() {
   const [flippedKey, setFlippedKey] = useState<string | null>(null)
@@ -21,6 +22,7 @@ export function ReadingPage() {
           />
         ))}
       </div>
+      <DogEar to="/" label="Back to the main page" />
     </div>
   )
 }
