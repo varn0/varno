@@ -6,7 +6,7 @@
 
 ## Summary
 
-A hidden "back page" at `/reading` showing a mosaic of flippable cards — one per author and book that shaped Alexis (31 total: 27 authors + 4 books). Each card shows a photo/cover on the front; tapping/clicking flips it to reveal the name and a link (English Wikipedia where available, with documented fallbacks). A personal note on the site, discoverable but not advertised in the main nav.
+A hidden "back page" at `/reading` showing a mosaic of flippable cards — one per author and book that shaped Alexis (36 total: 27 authors + 9 books). Each card shows a photo/cover on the front; tapping/clicking flips it to reveal the name and a link (English Wikipedia where available, with documented fallbacks). A personal note on the site, discoverable but not advertised in the main nav.
 
 ## Goals
 
@@ -29,7 +29,7 @@ A hidden "back page" at `/reading` showing a mosaic of flippable cards — one p
 |---|---|
 | Placement | Standalone **bare** route `/reading` — NO header and NO footer, just the mosaic. Reachable directly, and via a **dog-ear** (folded page corner, bottom-right) on the *other* tech pages (home/cv/blog) |
 | Navigation | A `DogEar` folded-corner link: on home/cv/blog it folds to `/reading`; a mirrored one on `/reading` folds back to `/` (the only way back from the bare page). Lifts/enlarges on hover. Replaces the earlier ✦ footer link |
-| Scope | All 31 images in `~/personal-docs/authors/` — 27 author portraits + 4 book covers — each its own card |
+| Scope | All 36 images in `~/personal-docs/authors/` — 27 author portraits + 9 book covers — each its own card |
 | Link targets | English Wikipedia where it exists; documented fallbacks otherwise (see "Link map rules") |
 | Flip trigger | Click/tap to flip (works identically on desktop and touch); back link tappable once flipped |
 | Flip exclusivity | Only one card is flipped at a time — opening a card closes the previously open one |
@@ -137,9 +137,17 @@ Four cards are book covers, not author portraits: *The Phoenix Project*, *The Eg
 
 A small data test asserts every `reading` entry has non-empty `name`, `image`, and an `https://` `url`.
 
-## Licensing note (follow-up, not blocking)
+## Licensing & credits
 
-Publishing these portraits makes them public. Several (living authors, archive photos) are likely CC-BY/CC-BY-SA requiring attribution. Recommended follow-up: add a `public/authors/CREDITS.txt` and/or a tiny attribution link, sourced from each image's Wikimedia Commons page. Tracked separately from this feature.
+Credits are recorded in **`public/authors/CREDITS.md`** (licences read from each
+portrait's Wikimedia Commons file page, 2026-10-03). Status:
+
+- **Attribution required (CC BY / CC BY-SA):** Ken Follett, Arturo Pérez-Reverte, Malcolm Guite, Ursula K. Le Guin, José Martí, George R. R. Martin — a visible credit is required wherever shown.
+- **Public domain / CC0:** most historical authors, plus Agatha Christie (CC0).
+- **7 portraits** (Asimov, Hamsun, Tolkien, Pichardo, Montaner, Orwell, Rowling) have **no recorded source** — verify or replace before public launch.
+- **All 9 book covers are copyrighted publisher artwork** (not freely licensed). Before going public: confirm fair use, get permission, or replace/omit. See `CREDITS.md` for the full list.
+
+Still open: surfacing the attribution in the UI (a discreet link to the credits) so the CC-BY images are compliant for public viewers.
 
 ## Appendix — card list (31)
 
@@ -177,7 +185,7 @@ Each row: source filename → normalized `public/authors/` filename → display 
 | Emilio_Salgari_ritratto.jpg | emilio-salgari.jpg | Emilio Salgari | https://en.wikipedia.org/wiki/Emilio_Salgari |
 | Horacio_Quiroga.jpg | horacio-quiroga.jpg | Horacio Quiroga | https://en.wikipedia.org/wiki/Horacio_Quiroga |
 
-### Books (4)
+### Books (9)
 
 | Source file | Normalized | Name | Link |
 |---|---|---|---|
@@ -185,5 +193,10 @@ Each row: source filename → normalized `public/authors/` filename → display 
 | sinuhe-el-egipcio_796_r2500.jpg | the-egyptian.jpg | The Egyptian | https://en.wikipedia.org/wiki/The_Egyptian |
 | martin-fierro-34534sf-8.jpg | martin-fierro.jpg | Martín Fierro | https://en.wikipedia.org/wiki/Martín_Fierro |
 | la_cienaga_de_los_hipopotamos.jpg | la-cienaga-de-los-hipopotamos.jpg | La Ciénaga de los Hipopótamos | https://en.wikipedia.org/wiki/Pauline_Gedge |
+| dracula.jpg | dracula.jpg | Dracula | https://en.wikipedia.org/wiki/Dracula |
+| frankenstein.jpeg | frankenstein.jpeg | Frankenstein | https://en.wikipedia.org/wiki/Frankenstein |
+| el_hombre_que_fue_jueves.jpg | the-man-who-was-thursday.jpg | The Man Who Was Thursday | https://en.wikipedia.org/wiki/The_Man_Who_Was_Thursday |
+| el_siglo_de_la_investigacion_criminal.jpg | the-century-of-the-detective.jpg | The Century of the Detective | https://en.wikipedia.org/wiki/Jürgen_Thorwald |
+| los_espejuelos_oscuros.jpg | the-black-spectacles.jpg | The Black Spectacles | https://en.wikipedia.org/wiki/The_Black_Spectacles |
 
 > URLs contain UTF-8 characters (accents). In `reading.ts` they are written as literal strings; the browser encodes them on navigation. Verified reachable 2026-10-02.

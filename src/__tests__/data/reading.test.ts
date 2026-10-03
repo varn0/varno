@@ -1,8 +1,8 @@
 import { reading } from '../../data/reading'
 
 describe('reading data', () => {
-  it('has 31 entries', () => {
-    expect(reading).toHaveLength(31)
+  it('has 36 entries', () => {
+    expect(reading).toHaveLength(36)
   })
 
   it('every entry has a name, an /authors/ image path, and an https url', () => {

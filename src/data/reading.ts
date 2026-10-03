@@ -33,9 +33,14 @@ export const reading: ReadingEntry[] = [
   { name: 'Pablo Neruda', image: '/authors/pablo-neruda.jpg', url: 'https://en.wikipedia.org/wiki/Pablo_Neruda' },
   { name: 'Emilio Salgari', image: '/authors/emilio-salgari.jpg', url: 'https://en.wikipedia.org/wiki/Emilio_Salgari' },
   { name: 'Horacio Quiroga', image: '/authors/horacio-quiroga.jpg', url: 'https://en.wikipedia.org/wiki/Horacio_Quiroga' },
-  // Books (4)
+  // Books (9)
   { name: 'The Phoenix Project', image: '/authors/the-phoenix-project.jpg', url: 'https://www.goodreads.com/book/show/17255186-the-phoenix-project' },
   { name: 'The Egyptian', image: '/authors/the-egyptian.jpg', url: 'https://en.wikipedia.org/wiki/The_Egyptian' },
   { name: 'Martín Fierro', image: '/authors/martin-fierro.jpg', url: 'https://en.wikipedia.org/wiki/Martín_Fierro' },
   { name: 'La Ciénaga de los Hipopótamos', image: '/authors/la-cienaga-de-los-hipopotamos.jpg', url: 'https://en.wikipedia.org/wiki/Pauline_Gedge' },
+  { name: 'Dracula', image: '/authors/dracula.jpg', url: 'https://en.wikipedia.org/wiki/Dracula' },
+  { name: 'Frankenstein', image: '/authors/frankenstein.jpeg', url: 'https://en.wikipedia.org/wiki/Frankenstein' },
+  { name: 'The Man Who Was Thursday', image: '/authors/the-man-who-was-thursday.jpg', url: 'https://en.wikipedia.org/wiki/The_Man_Who_Was_Thursday' },
+  { name: 'The Century of the Detective', image: '/authors/the-century-of-the-detective.jpg', url: 'https://en.wikipedia.org/wiki/Jürgen_Thorwald' },
+  { name: 'The Black Spectacles', image: '/authors/the-black-spectacles.jpg', url: 'https://en.wikipedia.org/wiki/The_Black_Spectacles' },
 ]
