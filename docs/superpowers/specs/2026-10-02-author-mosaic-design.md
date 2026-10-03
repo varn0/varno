@@ -48,11 +48,11 @@ Implemented with the existing stack — **Vite + React 18 + React Router v7 + Ty
 
 ### Navigation — the dog-ear
 
-- **`DogEar.tsx`** (`src/components/shared/`) — a reusable component: a `<Link to={to} className="dogear" aria-label={label}>` wrapping a small inline `<svg>`. The fold is drawn as **thin line art** (an outlined curled-corner `<path>`), not a filled block — so it reads as a delicate folded page corner on the plain (borderless) page, matching the minimal black/white aesthetic.
+- **`DogEar.tsx`** (`src/components/shared/`) — a reusable component: a `<Link to={to} className="dogear" aria-label={label}>` wrapping a small inline `<svg>`. The fold is drawn as a **filled folded corner with a lift shadow** (chosen from mockups): a grey underside triangle with a thin outline and a soft shadow so the corner looks lifted off the page.
 - `TechLayout` renders `<DogEar to="/reading" ... />`, so the dog-ear appears on home/cv/blog (the discovery entry points).
 - `ReadingPage` renders a mirrored `<DogEar to="/" ... />` — the fold-back, and the only way back from the otherwise bare page.
-- **SVG**: a single `.dogear-flap` path (`viewBox 0 0 40 40`) curves from the bottom edge up to a lifted tip and back to the right edge, closed along the diagonal crease — a curling corner. `fill: var(--bg)` (so the flap reads as the page's underside), `stroke: currentColor` thin, plus a subtle `drop-shadow` for lift.
-- **CSS (`.dogear` in `tech.css`)**: `position: fixed;` near `right/bottom: 0;` ~46px. `color: var(--text-muted)` drives the stroke via `currentColor`; on `:hover` it `transform: scale(1.18)` and darkens to `--text` (the "lift"). Theme-aware automatically (fill = `--bg`, stroke = theme text color). `:focus-visible` shows an accent outline. `prefers-reduced-motion` disables the scale transition.
+- **SVG**: a single `.dogear-flap` triangle path (`viewBox 0 0 56 56`, `M56 10 L10 56 L10 10 Z`) — the folded-up corner. `fill: var(--dogear-fold)` (a light grey underside; darker grey in dark theme), `stroke: var(--text)` thin, and `filter: drop-shadow(-2px -2px …)` casts the lifted corner's shadow up-left onto the page.
+- **CSS (`.dogear` in `tech.css`)**: `position: fixed; right/bottom: 0;` ~56px. Fold/shadow colours are theme tokens (`--dogear-fold`, `--dogear-shadow`) redefined under `[data-theme="dark"]`. On `:hover` the whole thing `transform: scale(1.12)` — the lift. `:focus-visible` shows an accent outline. `prefers-reduced-motion` disables the scale transition.
 - **Theme on the bare page**: because `/reading` has no header, it has no `ThemeToggle` — and `useTheme()` (which applies the saved/system theme to `<html data-theme>`) only ran inside header/profile components. So `App` now also calls `useTheme()` (alongside `useSide()`), ensuring the chosen theme is applied on every route, including the bare `/reading`. Without this, `/reading` was stuck on the `data-theme="light"` hardcoded in `index.html`.
 
 ### Components

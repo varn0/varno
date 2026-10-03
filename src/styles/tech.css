@@ -531,16 +531,22 @@
   color: var(--text);
 }
 
-/* Dog-ear: a thin folded page corner, bottom-right, linking to the back page */
+/* Dog-ear: a folded page corner (filled underside + lift shadow), bottom-right */
 .dogear {
   position: fixed;
-  right: 2px;
-  bottom: 2px;
-  width: 46px;
-  height: 46px;
+  right: 0;
+  bottom: 0;
+  width: 56px;
+  height: 56px;
   z-index: 20;
-  color: var(--text-muted); /* drives the stroke via currentColor */
-  transition: transform 0.2s ease, color 0.2s ease;
+  --dogear-fold: #ececec;
+  --dogear-shadow: rgba(0, 0, 0, 0.22);
+  transition: transform 0.2s ease;
+}
+
+[data-theme="dark"] .dogear {
+  --dogear-fold: #34373d;
+  --dogear-shadow: rgba(0, 0, 0, 0.6);
 }
 
 .dogear svg {
@@ -551,21 +557,20 @@
 }
 
 .dogear-flap {
-  fill: var(--bg);
-  stroke: currentColor;
-  stroke-width: 1.4;
+  fill: var(--dogear-fold);
+  stroke: var(--text);
+  stroke-width: 1.5;
   stroke-linejoin: round;
-  filter: drop-shadow(-1px -1px 1px rgba(0, 0, 0, 0.18));
+  filter: drop-shadow(-2px -2px 2.5px var(--dogear-shadow));
 }
 
 .dogear:hover {
-  transform: scale(1.18);
-  color: var(--text);
+  transform: scale(1.12);
 }
 
 .dogear:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
