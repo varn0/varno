@@ -446,7 +446,8 @@
 .reading-page {
   width: 100%;
   max-width: 800px;
-  padding: 2rem 0 4rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
 }
 
 .reading-grid {

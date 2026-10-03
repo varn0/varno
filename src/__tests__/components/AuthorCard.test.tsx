@@ -2,15 +2,15 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { AuthorCard } from '../../components/tech/AuthorCard'
 
-const props = {
+const base = {
   name: 'Jane Austen',
   image: '/authors/jane-austen.jpg',
   url: 'https://en.wikipedia.org/wiki/Jane_Austen',
 }
 
 describe('AuthorCard', () => {
-  it('renders the front image and starts unflipped with the link hidden', () => {
-    render(<AuthorCard {...props} />)
+  it('shows the front image and hides the link when not flipped', () => {
+    render(<AuthorCard {...base} flipped={false} onToggle={() => {}} />)
     const card = screen.getByRole('button', { name: 'Jane Austen' })
     expect(card).toHaveAttribute('aria-pressed', 'false')
     expect(screen.getByAltText('Jane Austen')).toBeInTheDocument()
@@ -18,36 +18,38 @@ describe('AuthorCard', () => {
     expect(screen.queryByRole('link')).not.toBeInTheDocument()
   })
 
-  it('flips on click and exposes the external link with correct attributes', async () => {
-    const user = userEvent.setup()
-    render(<AuthorCard {...props} />)
+  it('exposes the external link with correct attributes when flipped', () => {
+    render(<AuthorCard {...base} flipped={true} onToggle={() => {}} />)
     const card = screen.getByRole('button', { name: 'Jane Austen' })
-
-    await user.click(card)
-
     expect(card).toHaveAttribute('aria-pressed', 'true')
     const link = screen.getByRole('link')
-    expect(link).toHaveAttribute('href', props.url)
+    expect(link).toHaveAttribute('href', base.url)
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
   })
 
-  it('flips with the keyboard (Enter)', async () => {
+  it('calls onToggle when the card is clicked', async () => {
     const user = userEvent.setup()
-    render(<AuthorCard {...props} />)
-    const card = screen.getByRole('button', { name: 'Jane Austen' })
-    card.focus()
-    await user.keyboard('{Enter}')
-    expect(card).toHaveAttribute('aria-pressed', 'true')
+    const onToggle = vi.fn()
+    render(<AuthorCard {...base} flipped={false} onToggle={onToggle} />)
+    await user.click(screen.getByRole('button', { name: 'Jane Austen' }))
+    expect(onToggle).toHaveBeenCalledTimes(1)
   })
 
-  it('clicking the link does not flip the card back (stopPropagation)', async () => {
+  it('calls onToggle when Enter is pressed', async () => {
     const user = userEvent.setup()
-    render(<AuthorCard {...props} />)
-    const card = screen.getByRole('button', { name: 'Jane Austen' })
-    await user.click(card)
-    const link = screen.getByRole('link')
-    await user.click(link)
-    expect(card).toHaveAttribute('aria-pressed', 'true')
+    const onToggle = vi.fn()
+    render(<AuthorCard {...base} flipped={false} onToggle={onToggle} />)
+    screen.getByRole('button', { name: 'Jane Austen' }).focus()
+    await user.keyboard('{Enter}')
+    expect(onToggle).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not call onToggle when the link itself is clicked (stopPropagation)', async () => {
+    const user = userEvent.setup()
+    const onToggle = vi.fn()
+    render(<AuthorCard {...base} flipped={true} onToggle={onToggle} />)
+    await user.click(screen.getByRole('link'))
+    expect(onToggle).not.toHaveBeenCalled()
   })
 })

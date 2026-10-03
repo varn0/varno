@@ -1,17 +1,16 @@
-import { useState, type KeyboardEvent } from 'react'
+import type { KeyboardEvent } from 'react'
 import type { ReadingEntry } from '../../data/reading'
 
-export function AuthorCard({ name, image, url }: ReadingEntry) {
-  const [flipped, setFlipped] = useState(false)
+type AuthorCardProps = ReadingEntry & {
+  flipped: boolean
+  onToggle: () => void
+}
 
-  function toggle() {
-    setFlipped((f) => !f)
-  }
-
+export function AuthorCard({ name, image, url, flipped, onToggle }: AuthorCardProps) {
   function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
-      toggle()
+      onToggle()
     }
   }
 
@@ -22,7 +21,7 @@ export function AuthorCard({ name, image, url }: ReadingEntry) {
       tabIndex={0}
       aria-pressed={flipped}
       aria-label={name}
-      onClick={toggle}
+      onClick={onToggle}
       onKeyDown={handleKeyDown}
     >
       <div className="author-card-inner">

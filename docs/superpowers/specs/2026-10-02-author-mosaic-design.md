@@ -27,10 +27,11 @@ A hidden "back page" at `/reading` showing a mosaic of flippable cards — one p
 
 | Decision | Choice |
 |---|---|
-| Placement | Standalone hidden route `/reading`, no top-nav link; subtle footer link for discovery |
+| Placement | Standalone **bare** route `/reading` — NO header and NO footer, just the mosaic. Reachable directly, and via the subtle footer link that appears on the *other* tech pages (home/cv/blog) |
 | Scope | All 31 images in `~/personal-docs/authors/` — 27 author portraits + 4 book covers — each its own card |
 | Link targets | English Wikipedia where it exists; documented fallbacks otherwise (see "Link map rules") |
 | Flip trigger | Click/tap to flip (works identically on desktop and touch); back link tappable once flipped |
+| Flip exclusivity | Only one card is flipped at a time — opening a card closes the previously open one |
 | Columns | Exactly 3 equal-width columns; drop to 2 columns on narrow phones (≤ 480px) |
 | Intro copy | None |
 
@@ -40,24 +41,24 @@ Implemented with the existing stack — **Vite + React 18 + React Router v7 + Ty
 
 ### Routing
 
-- Add a `<Route path="reading" element={<ReadingPage />} />` inside the existing `TechLayout` route group in `src/App.tsx`, so the page inherits the header, theme toggle, and `data-side="tech"` styling.
+- Add a top-level `<Route path="reading" element={<ReadingPage />} />` in `src/App.tsx` **outside** the `TechLayout` route group, so the page renders with NO header and NO footer — just the mosaic. `useSide()` runs at the `App` level (not inside the layout), so `data-side="tech"` is still set on `<html>` for `/reading` and all theme/side tokens apply.
 - Not added to `TechHeader` nav.
+- Because `.reading-page` no longer sits inside `.tech-main` (which centred it), it centres itself with `margin: 0 auto` and carries its own horizontal padding.
 
 ### Discovery (footer link)
 
-- Add a minimal footer to `TechLayout` (`src/components/tech/TechLayout.tsx`) containing a single low-contrast link to `/reading`. Understated label (e.g. a small `✦` glyph or the muted word `reading`). Styled with `--text-muted` and small font so it reads as an easter egg, not a nav item.
-- The footer renders on every tech-side page (it lives in the shared layout). This is acceptable: the link is deliberately subtle.
+- Add a minimal footer to `TechLayout` (`src/components/tech/TechLayout.tsx`) containing a single low-contrast link to `/reading`. Understated label (a small `✦` glyph). Styled with `--text-muted` and small font so it reads as an easter egg, not a nav item.
+- The footer renders on the tech-side pages that use `TechLayout` (home/cv/blog) — the discovery entry points. The `/reading` page itself is bare (outside `TechLayout`), so the footer does not appear there. Returning from `/reading` is via browser back.
 
 ### Components
 
 Under `src/components/tech/`:
 
-- **`ReadingPage.tsx`** — page wrapper. Renders a `<div className="reading-page">` containing the grid. Maps over the `reading` data array, rendering one `AuthorCard` per entry. No heading or intro text.
-- **`AuthorCard.tsx`** — one flip card.
-  - Props: `{ name: string; image: string; url: string }`.
-  - Local `useState<boolean>` `flipped`.
+- **`ReadingPage.tsx`** — page wrapper and **owner of the flip state**. Holds `flippedKey: string | null` (the `image` of the open card, or `null`). Renders a `<div className="reading-page">` containing the grid, mapping over `reading` and rendering one `AuthorCard` per entry. For each card it passes `flipped={flippedKey === entry.image}` and an `onToggle` that sets `flippedKey` to that card's image (or back to `null` if it was already open). This centralised state is what enforces **one card flipped at a time**. No heading or intro text.
+- **`AuthorCard.tsx`** — one flip card. **Controlled** (holds no state of its own).
+  - Props: `{ name: string; image: string; url: string; flipped: boolean; onToggle: () => void }`.
   - Rendered as a `<div>` acting as the flip control: `role="button"`, `tabIndex={0}`, `aria-pressed={flipped}`, `aria-label={name}`. A native `<button>` is **not** used because the back face contains an `<a>`, and nesting an interactive `<a>` inside a `<button>` is invalid HTML. The div gives us the same click/keyboard affordance without the nesting violation.
-  - `onClick` toggles `flipped`. `onKeyDown` toggles `flipped` on Enter or Space (and calls `preventDefault` on Space to avoid page scroll).
+  - `onClick` calls `onToggle`. `onKeyDown` calls `onToggle` on Enter or Space (and calls `preventDefault` on Space to avoid page scroll).
   - Front face: `<img>` with `alt={name}`, `loading="lazy"`.
   - Back face: `name` + an `<a href={url} target="_blank" rel="noopener noreferrer">` labeled `Read ↗` (neutral label since not every link is Wikipedia).
   - Accessibility: the back-face link is present in the DOM but only visually revealed when flipped. To keep a hidden link out of the tab order, the link gets `tabIndex={flipped ? 0 : -1}` and `aria-hidden={!flipped}`.
@@ -94,7 +95,7 @@ Every card links to the best available canonical page:
 
 New block in `src/styles/tech.css`, using existing CSS custom properties (`--bg`, `--text`, `--text-muted`, `--border`, `--accent`, `--radius`, `--font-heading`, `--font-mono`).
 
-- `.reading-page` — `width: 100%; max-width: 800px; padding: 2rem 0 4rem;` (consistent with other pages).
+- `.reading-page` — `width: 100%; max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 4rem;` (centres itself and carries horizontal padding, since the bare route has no `.tech-main` wrapper).
 - `.reading-grid` — `display: grid; grid-template-columns: repeat(3, 1fr); gap: ~0.75rem;`
 - `.author-card` — the flip container. Fixed `aspect-ratio: 3 / 4`; `perspective` on the grid/card; reset button styles (no default border/background/padding), `cursor: pointer`.
 - `.author-card-inner` — `position: relative; width/height: 100%; transition: transform 0.5s; transform-style: preserve-3d;` toggled to `transform: rotateY(180deg)` when flipped (via a `.is-flipped` class).
@@ -116,13 +117,18 @@ Four cards are book covers, not author portraits: *The Phoenix Project*, *The Eg
 
 ## Testing (vitest + @testing-library/react)
 
-New `src/__tests__/components/ReadingPage.test.tsx` and/or `AuthorCard.test.tsx`:
+`AuthorCard` (controlled component — `flipped`/`onToggle` passed in):
 
-1. `ReadingPage` renders one card per entry in `reading` (assert count = data length, i.e. 31).
-2. A card starts showing the front (`aria-pressed=false`); its link is out of the tab order (`tabIndex=-1`).
-3. Clicking a card flips it (`aria-pressed=true`); the name and link become active (`tabIndex=0`).
-4. The back link has the correct `href` (from data), `target="_blank"`, and `rel="noopener noreferrer"`.
-5. Clicking the link does not toggle the card back (stopPropagation).
+1. Unflipped (`flipped=false`): shows the front image, `aria-pressed=false`, link absent from the a11y tree.
+2. Flipped (`flipped=true`): `aria-pressed=true`; the back link has the correct `href` (from data), `target="_blank"`, `rel="noopener noreferrer"`.
+3. Clicking the card calls `onToggle`; pressing Enter calls `onToggle`.
+4. Clicking the link itself does NOT call `onToggle` (stopPropagation).
+
+`ReadingPage` (owns the flip state):
+
+5. Renders one card per entry in `reading` (assert count = data length, i.e. 31).
+6. **Only one card flipped at a time**: clicking card A sets A `aria-pressed=true` and B `false`; then clicking card B flips B on and A back off.
+7. Clicking the same card twice flips it back to the front.
 
 A small data test asserts every `reading` entry has non-empty `name`, `image`, and an `https://` `url`.
 

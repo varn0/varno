@@ -17,8 +17,8 @@ function App() {
         <Route path="cv" element={<CvPage />} />
         <Route path="blog" element={<BlogIndex />} />
         <Route path="blog/:slug" element={<BlogPost />} />
-        <Route path="reading" element={<ReadingPage />} />
       </Route>
+      <Route path="reading" element={<ReadingPage />} />
     </Routes>
   )
 }
