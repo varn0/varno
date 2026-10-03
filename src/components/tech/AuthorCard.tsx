@@ -30,7 +30,9 @@ export function AuthorCard({ name, image, url }: ReadingEntry) {
           <img src={image} alt={name} loading="lazy" />
         </div>
         <div className="author-card-face author-card-back">
-          <span className="author-card-name">{name}</span>
+          <span className="author-card-name" aria-hidden={!flipped}>
+            {name}
+          </span>
           <a
             className="author-card-link"
             href={url}

@@ -529,13 +529,13 @@
 }
 
 /* Subtle back-page footer link */
-.tech-footer {
+[data-side="tech"] .tech-footer {
   display: flex;
   justify-content: center;
   padding: 1.5rem;
 }
 
-.tech-footer-link {
+[data-side="tech"] .tech-footer-link {
   color: var(--text-muted);
   opacity: 0.4;
   font-size: 0.9rem;
@@ -543,7 +543,7 @@
   transition: opacity 0.2s ease;
 }
 
-.tech-footer-link:hover {
+[data-side="tech"] .tech-footer-link:hover {
   opacity: 1;
 }
 
