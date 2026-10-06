@@ -15,3 +15,20 @@ class NoopIntersectionObserver {
 }
 
 vi.stubGlobal('IntersectionObserver', NoopIntersectionObserver)
+
+// jsdom has no window.matchMedia. Provide a no-op implementation so
+// components that render useTheme (e.g. ThemeToggle, pulled in via
+// TechHeader) don't crash during tests.
+vi.stubGlobal(
+  'matchMedia',
+  vi.fn().mockImplementation((query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+)
