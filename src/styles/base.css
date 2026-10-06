@@ -31,6 +31,16 @@
   --radius: 8px;
 }
 
+/* Tech side reads as a warm paper page (matches the manila dog-ear), rather
+   than flat white/black. Scoped to tech so the creative side is untouched. */
+:root[data-side="tech"][data-theme="light"] {
+  --bg: #faf6ee;
+}
+
+:root[data-side="tech"][data-theme="dark"] {
+  --bg: #17120a;
+}
+
 /* === Reset === */
 *,
 *::before,
