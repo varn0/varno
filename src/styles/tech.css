@@ -541,16 +541,19 @@
   width: 56px;
   height: 56px;
   z-index: 20;
-  --dogear-fold: #ececec;
-  --dogear-shadow: rgba(0, 0, 0, 0.22);
+  /* Manila paper: a translucent aged-paper fold (page texture reads through). */
+  --dogear-fold: rgba(232, 220, 192, 0.78);
+  --dogear-stroke: #8a764f;
+  --dogear-shadow: rgba(80, 60, 20, 0.32);
   opacity: 1;
   visibility: visible;
   transition: transform 0.2s ease, opacity 0.3s ease, visibility 0s;
 }
 
 [data-theme="dark"] .dogear {
-  --dogear-fold: #34373d;
-  --dogear-shadow: rgba(0, 0, 0, 0.6);
+  --dogear-fold: rgba(90, 74, 48, 0.78);
+  --dogear-stroke: #c9b487;
+  --dogear-shadow: rgba(0, 0, 0, 0.65);
 }
 
 .dogear svg {
@@ -562,10 +565,12 @@
 
 .dogear-flap {
   fill: var(--dogear-fold);
-  stroke: var(--text);
+  stroke: var(--dogear-stroke);
   stroke-width: 1.5;
   stroke-linejoin: round;
-  filter: drop-shadow(-2px -2px 2.5px var(--dogear-shadow));
+  /* Shadow cast down-right, under the diagonal crease — the flap reads as
+     peeled up from the corner, not floating above its top/left edges. */
+  filter: drop-shadow(2px 2px 3px var(--dogear-shadow));
 }
 
 .dogear:hover {
