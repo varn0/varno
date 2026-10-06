@@ -28,7 +28,11 @@ export function useAtBottom(): UseAtBottom {
       (entries) => {
         setAtBottom(entries[0]?.isIntersecting ?? false)
       },
-      { rootMargin: '0px 0px -8px 0px' },
+      // The sentinel sits at the document's end, flush with the viewport bottom
+      // at max scroll (and on short pages). The margin must be non-negative or
+      // it would never intersect; a tiny positive bottom margin absorbs
+      // sub-pixel rounding so the reveal reliably fires at the very bottom.
+      { rootMargin: '0px 0px 1px 0px' },
     )
     observer.observe(node)
     return () => observer.disconnect()

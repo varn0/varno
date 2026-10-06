@@ -587,7 +587,9 @@
 
 .page-end-sentinel {
   width: 100%;
-  height: 0;
+  /* 1px (not 0) so it has area for the IntersectionObserver to detect at the
+     document's end — a zero-height element at the exact boundary is unreliable. */
+  height: 1px;
 }
 
 @media (prefers-reduced-motion: reduce) {
