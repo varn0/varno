@@ -57,8 +57,15 @@ becomes visible.
   inconsistent browser support, and awkward to express "only at the very
   bottom".
 
-A small negative `rootMargin` (`0px 0px -8px 0px`) makes the trigger fire at the
-genuine bottom rather than a hair early.
+The sentinel sits at the document's end and is flush with the viewport bottom at
+max scroll (and on short, non-scrollable pages). The observer's bottom
+`rootMargin` must therefore be **non-negative**, and the sentinel needs a little
+height, or it is never detected at the very bottom. Use `rootMargin:
+'0px 0px 1px 0px'` plus a `1px`-tall sentinel so the reveal reliably fires at the
+genuine bottom. (A negative bottom margin — the obvious "fire exactly at the
+bottom" instinct — actually pushes the detection boundary *above* the sentinel's
+resting position, so the dog-ear would never appear on short or TechLayout
+pages.)
 
 **Assumption — navigation stability.** `TechLayout` persists across tech routes,
 so its sentinel/observer are stable DOM nodes; the observer re-evaluates on the
@@ -86,7 +93,7 @@ function useAtBottom(): { ref: (node: HTMLDivElement | null) => void; atBottom: 
   throw. (See Testing: `setup.ts` also gets an IO mock for tests that assert
   toggling.)
 - When supported: creates an `IntersectionObserver` with
-  `rootMargin: '0px 0px -8px 0px'`, observes the node, sets `atBottom` to the
+  `rootMargin: '0px 0px 1px 0px'`, observes the node, sets `atBottom` to the
   entry's `isIntersecting` value, and disconnects on cleanup.
 
 ### `src/components/shared/DogEar.tsx` (modified)

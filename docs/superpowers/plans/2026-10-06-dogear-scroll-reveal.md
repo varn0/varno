@@ -201,7 +201,7 @@ export function useAtBottom(): UseAtBottom {
       (entries) => {
         setAtBottom(entries[0]?.isIntersecting ?? false)
       },
-      { rootMargin: '0px 0px -8px 0px' },
+      { rootMargin: '0px 0px 1px 0px' },
     )
     observer.observe(node)
     return () => observer.disconnect()
@@ -565,9 +565,15 @@ In `src/styles/tech.css`, immediately after the `.dogear:focus-visible { ... }` 
 
 .page-end-sentinel {
   width: 100%;
-  height: 0;
+  height: 1px;
 }
 ```
+
+> **Correction (found during Task 7 verification):** the sentinel is `1px` tall
+> (not `0`) and the hook's `rootMargin` bottom is `+1px` (not `-8px`). The
+> sentinel sits flush with the viewport bottom at max scroll and on short pages;
+> a negative margin or zero-height element is never detected there, so the
+> forward dog-ear never appeared on the home page or `/cv`. Verified in-browser.
 
 - [ ] **Step 4: Make the hidden state instant under reduced motion**
 
