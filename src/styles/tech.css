@@ -594,12 +594,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .dogear,
-  .dogear--hidden {
-    transition: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
+  .dogear--hidden,
   .author-card-inner {
     transition: none;
   }

@@ -8,6 +8,7 @@ type IOCallback = (entries: Array<{ isIntersecting: boolean }>) => void
 // the callback and assert disconnect().
 let instances: Array<{
   callback: IOCallback
+  options?: IntersectionObserverInit
   observe: ReturnType<typeof vi.fn>
   disconnect: ReturnType<typeof vi.fn>
   trigger: (isIntersecting: boolean) => void
@@ -21,10 +22,11 @@ beforeEach(() => {
     unobserve = vi.fn()
     disconnect = vi.fn()
     takeRecords = vi.fn(() => [])
-    constructor(cb: IOCallback) {
+    constructor(cb: IOCallback, options?: IntersectionObserverInit) {
       this.callback = cb
       instances.push({
         callback: cb,
+        options,
         observe: this.observe,
         disconnect: this.disconnect,
         trigger: (isIntersecting: boolean) =>
@@ -50,6 +52,17 @@ describe('useAtBottom', () => {
 
     expect(instances).toHaveLength(1)
     expect(instances[0].observe).toHaveBeenCalledTimes(1)
+  })
+
+  it('observes with a non-negative bottom rootMargin', () => {
+    // Load-bearing: the sentinel rests flush with the viewport bottom at max
+    // scroll and on short pages. A negative bottom margin would push the
+    // detection boundary above it, so the dog-ear would never reveal there.
+    const { result } = renderHook(() => useAtBottom())
+    act(() => {
+      result.current.ref(document.createElement('div'))
+    })
+    expect(instances[0].options?.rootMargin).toBe('0px 0px 1px 0px')
   })
 
   it('flips atBottom true then false as the sentinel intersects and leaves', () => {
