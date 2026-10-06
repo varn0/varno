@@ -29,6 +29,12 @@ describe('ReadingPage', () => {
     expect(back).toHaveAttribute('href', '/')
   })
 
+  it('renders a page-end sentinel as the last child of the page', () => {
+    const { container } = renderPage()
+    const page = container.querySelector('.reading-page')
+    expect(page?.lastElementChild).toHaveClass('page-end-sentinel')
+  })
+
   it('flips only one card at a time', async () => {
     const user = userEvent.setup()
     renderPage()
