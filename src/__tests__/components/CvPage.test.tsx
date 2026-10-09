@@ -67,4 +67,27 @@ describe('CvPage', () => {
     await user.click(screen.getByRole('button', { name: 'SHOW PERSONAL NOTES' }))
     expect(page).toHaveClass('cv-page--notes-visible')
   })
+
+  it('reflects notes state on the document root so the sheet can widen', async () => {
+    const user = userEvent.setup()
+    render(<CvPage />)
+    expect(document.documentElement.hasAttribute('data-cv-notes')).toBe(false)
+
+    await user.click(screen.getByRole('button', { name: 'SHOW PERSONAL NOTES' }))
+    expect(document.documentElement.getAttribute('data-cv-notes')).toBe('true')
+
+    await user.click(screen.getByRole('button', { name: 'HIDE PERSONAL NOTES' }))
+    expect(document.documentElement.hasAttribute('data-cv-notes')).toBe(false)
+  })
+
+  it('cleans up the root notes attribute on unmount', async () => {
+    const user = userEvent.setup()
+    const { unmount } = render(<CvPage />)
+
+    await user.click(screen.getByRole('button', { name: 'SHOW PERSONAL NOTES' }))
+    expect(document.documentElement.getAttribute('data-cv-notes')).toBe('true')
+
+    unmount()
+    expect(document.documentElement.hasAttribute('data-cv-notes')).toBe(false)
+  })
 })

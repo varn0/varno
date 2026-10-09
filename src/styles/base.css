@@ -26,6 +26,12 @@
   --sheet-max: 896px;
 }
 
+/* CV "personal notes" view widens the content to 1000px; widen the sheet to
+   match so its margins (and the dog-ear fold) still frame the content. */
+:root[data-side="tech"][data-cv-notes="true"] {
+  --sheet-max: 1096px;
+}
+
 :root[data-side="creative"] {
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Lora', Georgia, serif;

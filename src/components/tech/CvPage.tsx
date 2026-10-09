@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { roles, education } from '../../data/work-history'
 import type { Role } from '../../data/work-history'
 
@@ -66,6 +66,15 @@ function MobileNotesView() {
 
 export function CvPage() {
   const [notesVisible, setNotesVisible] = useState(false)
+
+  // The notes view widens the content past the normal sheet. Reflect that state
+  // on the root so the paper sheet (a root-level pseudo-element) can widen to
+  // keep its margins. Cleaned up on hide/unmount so other pages are unaffected.
+  useEffect(() => {
+    if (!notesVisible) return
+    document.documentElement.setAttribute('data-cv-notes', 'true')
+    return () => document.documentElement.removeAttribute('data-cv-notes')
+  }, [notesVisible])
 
   return (
     <div className={`cv-page ${notesVisible ? 'cv-page--notes-visible' : ''}`}>
