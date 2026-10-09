@@ -21,6 +21,9 @@
   --accent: #0066ff;
   --radius: 2px;
   --content-max: 800px;
+  /* The paper sheet is wider than the text column so the content sits with a
+     margin inside it (and the dog-ear folds at the sheet's edge, not the text). */
+  --sheet-max: 896px;
 }
 
 :root[data-side="creative"] {
