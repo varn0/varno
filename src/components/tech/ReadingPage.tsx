@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { reading } from '../../data/reading'
 import { AuthorCard } from './AuthorCard'
 import { DogEar } from '../shared/DogEar'
+import { useAtBottom } from '../../hooks/useAtBottom'
 
 export function ReadingPage() {
   const [flippedKey, setFlippedKey] = useState<string | null>(null)
+  const { ref, atBottom } = useAtBottom()
 
   return (
     <div className="reading-page">
@@ -22,7 +24,9 @@ export function ReadingPage() {
           />
         ))}
       </div>
-      <DogEar to="/" label="Back to the main page" />
+      <DogEar to="/" label="Back to the main page" visible={atBottom} />
+      {/* Marks the page's end; must be the last child. */}
+      <div ref={ref} className="page-end-sentinel" aria-hidden="true" />
     </div>
   )
 }

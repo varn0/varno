@@ -5,6 +5,29 @@
   flex-direction: column;
 }
 
+/* Sheet-on-desk: the viewport is the lighter surround; a centered, full-height
+   band paints the warm paper sheet behind all content (header, pages, and the
+   standalone /reading route alike). Fixed + z-index:-1 keeps it purely visual,
+   so no layout box changes. Below --content-max the band fills the width, so
+   the gutters and edge shadow simply vanish on phones. */
+[data-side="tech"] body {
+  background: var(--page-surround);
+}
+
+[data-side="tech"] body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(var(--sheet-max), 100%);
+  background: var(--bg);
+  box-shadow: 0 0 40px var(--sheet-shadow);
+  z-index: -1;
+  pointer-events: none;
+}
+
 [data-side="tech"] .tech-header {
   display: flex;
   justify-content: center;
@@ -534,19 +557,29 @@
 /* Dog-ear: a folded page corner (filled underside + lift shadow), bottom-right */
 .dogear {
   position: fixed;
-  right: 0;
+  /* Align the dog-ear's right edge to the paper sheet's right edge, so the fold
+     sits on the sheet's margin. Below --sheet-max the term goes <= 0 and max()
+     clamps to the corner. */
+  right: max(0px, calc(50% - var(--sheet-max) / 2));
   bottom: 0;
   width: 56px;
   height: 56px;
   z-index: 20;
-  --dogear-fold: #ececec;
-  --dogear-shadow: rgba(0, 0, 0, 0.22);
-  transition: transform 0.2s ease;
+  /* Manila paper: a translucent aged-paper fold (page texture reads through). */
+  --dogear-fold: rgba(232, 220, 192, 0.78);
+  --dogear-stroke: #8a764f;
+  --dogear-shadow: rgba(80, 60, 20, 0.42);
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0.2s ease, opacity 0.3s ease, visibility 0s;
 }
 
 [data-theme="dark"] .dogear {
-  --dogear-fold: #34373d;
-  --dogear-shadow: rgba(0, 0, 0, 0.6);
+  /* Charcoal fold — the lifted corner reveals the charcoal surround behind the
+     sheet (matches --page-surround), with a neutral grey crease. */
+  --dogear-fold: rgba(36, 36, 36, 0.82);
+  --dogear-stroke: #4f4f4f;
+  --dogear-shadow: rgba(0, 0, 0, 0.78);
 }
 
 .dogear svg {
@@ -558,10 +591,12 @@
 
 .dogear-flap {
   fill: var(--dogear-fold);
-  stroke: var(--text);
-  stroke-width: 1.5;
+  stroke: var(--dogear-stroke);
+  stroke-width: 1;
   stroke-linejoin: round;
-  filter: drop-shadow(-2px -2px 2.5px var(--dogear-shadow));
+  /* Shadow cast down-right, under the diagonal crease — the flap reads as
+     peeled up from the corner, not floating above its top/left edges. */
+  filter: drop-shadow(3px 3px 5px var(--dogear-shadow));
 }
 
 .dogear:hover {
@@ -573,13 +608,24 @@
   outline-offset: 3px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .dogear {
-    transition: none;
-  }
+.dogear--hidden {
+  opacity: 0;
+  visibility: hidden; /* removes it from the tab order and the a11y tree */
+  pointer-events: none;
+  /* Delay the visibility flip until the opacity fade finishes, so it fades out. */
+  transition: transform 0.2s ease, opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.page-end-sentinel {
+  width: 100%;
+  /* 1px (not 0) so it has area for the IntersectionObserver to detect at the
+     document's end — a zero-height element at the exact boundary is unreliable. */
+  height: 1px;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .dogear,
+  .dogear--hidden,
   .author-card-inner {
     transition: none;
   }

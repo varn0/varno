@@ -20,6 +20,16 @@
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
   --accent: #0066ff;
   --radius: 2px;
+  --content-max: 800px;
+  /* The paper sheet is wider than the text column so the content sits with a
+     margin inside it (and the dog-ear folds at the sheet's edge, not the text). */
+  --sheet-max: 896px;
+}
+
+/* CV "personal notes" view widens the content to 1000px; widen the sheet to
+   match so its margins (and the dog-ear fold) still frame the content. */
+:root[data-side="tech"][data-cv-notes="true"] {
+  --sheet-max: 1096px;
 }
 
 :root[data-side="creative"] {
@@ -28,6 +38,21 @@
   --font-mono: 'Courier New', monospace;
   --accent: #8B4513;
   --radius: 8px;
+}
+
+/* Tech side reads as a warm paper sheet laid on a lighter surround (matches the
+   manila dog-ear). --bg is the centered sheet; --page-surround is the gutter the
+   sheet casts its edge shadow onto. Scoped to tech so creative is untouched. */
+:root[data-side="tech"][data-theme="light"] {
+  --bg: #faf6ee;
+  --page-surround: #fffefb;
+  --sheet-shadow: rgba(60, 45, 20, 0.16);
+}
+
+:root[data-side="tech"][data-theme="dark"] {
+  --bg: #17120a;
+  --page-surround: #242424;
+  --sheet-shadow: rgba(0, 0, 0, 0.55);
 }
 
 /* === Reset === */
