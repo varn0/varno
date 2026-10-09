@@ -574,8 +574,10 @@
 }
 
 [data-theme="dark"] .dogear {
-  --dogear-fold: rgba(90, 74, 48, 0.78);
-  --dogear-stroke: #c9b487;
+  /* Charcoal fold — the lifted corner reveals the charcoal surround behind the
+     sheet (matches --page-surround), with a neutral grey crease. */
+  --dogear-fold: rgba(36, 36, 36, 0.82);
+  --dogear-stroke: #4f4f4f;
   --dogear-shadow: rgba(0, 0, 0, 0.78);
 }
 
