@@ -5,6 +5,29 @@
   flex-direction: column;
 }
 
+/* Sheet-on-desk: the viewport is the lighter surround; a centered, full-height
+   band paints the warm paper sheet behind all content (header, pages, and the
+   standalone /reading route alike). Fixed + z-index:-1 keeps it purely visual,
+   so no layout box changes. Below --content-max the band fills the width, so
+   the gutters and edge shadow simply vanish on phones. */
+[data-side="tech"] body {
+  background: var(--page-surround);
+}
+
+[data-side="tech"] body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(var(--content-max), 100%);
+  background: var(--bg);
+  box-shadow: 0 0 40px var(--sheet-shadow);
+  z-index: -1;
+  pointer-events: none;
+}
+
 [data-side="tech"] .tech-header {
   display: flex;
   justify-content: center;

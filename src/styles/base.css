@@ -31,14 +31,19 @@
   --radius: 8px;
 }
 
-/* Tech side reads as a warm paper page (matches the manila dog-ear), rather
-   than flat white/black. Scoped to tech so the creative side is untouched. */
+/* Tech side reads as a warm paper sheet laid on a lighter surround (matches the
+   manila dog-ear). --bg is the centered sheet; --page-surround is the gutter the
+   sheet casts its edge shadow onto. Scoped to tech so creative is untouched. */
 :root[data-side="tech"][data-theme="light"] {
   --bg: #faf6ee;
+  --page-surround: #fffefb;
+  --sheet-shadow: rgba(60, 45, 20, 0.16);
 }
 
 :root[data-side="tech"][data-theme="dark"] {
   --bg: #17120a;
+  --page-surround: #241c12;
+  --sheet-shadow: rgba(0, 0, 0, 0.55);
 }
 
 /* === Reset === */
