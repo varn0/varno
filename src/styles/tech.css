@@ -565,21 +565,40 @@
   width: 56px;
   height: 56px;
   z-index: 20;
-  /* Manila paper: a translucent aged-paper fold (page texture reads through). */
+  /* Peel grows from the page's own corner (bottom-right), not the box centre. */
+  transform-origin: bottom right;
+  /* Manila paper: a translucent aged-paper fold (page texture reads through).
+     --fold is the paper's base tone; --crease is the shadow in the bend and
+     --highlight the light catch at the lifted edge (the curl's shading). */
   --dogear-fold: rgba(232, 220, 192, 0.78);
+  --dogear-crease: rgba(150, 128, 82, 0.8);
+  --dogear-highlight: rgba(250, 245, 232, 0.9);
   --dogear-stroke: #8a764f;
   --dogear-shadow: rgba(80, 60, 20, 0.42);
   opacity: 1;
   visibility: visible;
-  transition: transform 0.2s ease, opacity 0.3s ease, visibility 0s;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s;
 }
 
 [data-theme="dark"] .dogear {
   /* Charcoal fold — the lifted corner reveals the charcoal surround behind the
      sheet (matches --page-surround), with a neutral grey crease. */
   --dogear-fold: rgba(36, 36, 36, 0.82);
+  --dogear-crease: rgba(12, 12, 12, 0.88);
+  --dogear-highlight: rgba(78, 78, 78, 0.85);
   --dogear-stroke: #4f4f4f;
   --dogear-shadow: rgba(0, 0, 0, 0.78);
+}
+
+/* Curl gradient stops (coloured here so they track the theme). */
+.dogear-stop-crease {
+  stop-color: var(--dogear-crease);
+}
+.dogear-stop-base {
+  stop-color: var(--dogear-fold);
+}
+.dogear-stop-highlight {
+  stop-color: var(--dogear-highlight);
 }
 
 .dogear svg {
@@ -590,17 +609,23 @@
 }
 
 .dogear-flap {
-  fill: var(--dogear-fold);
+  /* fill comes from the inline url(#gradient) — the curl shading. */
   stroke: var(--dogear-stroke);
   stroke-width: 1;
   stroke-linejoin: round;
   /* Shadow cast down-right, under the diagonal crease — the flap reads as
      peeled up from the corner, not floating above its top/left edges. */
   filter: drop-shadow(3px 3px 5px var(--dogear-shadow));
+  transition: filter 0.3s ease;
 }
 
+/* Hover peels the corner further up and deepens the shadow beneath it. */
 .dogear:hover {
-  transform: scale(1.12);
+  transform: scale(1.32);
+}
+
+.dogear:hover .dogear-flap {
+  filter: drop-shadow(5px 5px 9px var(--dogear-shadow));
 }
 
 .dogear:focus-visible {
