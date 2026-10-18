@@ -144,3 +144,8 @@
     height: 2.5rem;
   }
 }
+
+/* Suspense fallback for lazy routes — minimal, avoids layout jump */
+.route-fallback {
+  min-height: 40vh;
+}

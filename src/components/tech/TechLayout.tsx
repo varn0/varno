@@ -1,6 +1,8 @@
+import { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 import { TechHeader } from './TechHeader'
 import { DogEar } from '../shared/DogEar'
+import { RouteFallback } from '../shared/RouteFallback'
 import { useAtBottom } from '../../hooks/useAtBottom'
 
 export function TechLayout() {
@@ -10,7 +12,9 @@ export function TechLayout() {
     <div className="tech-layout">
       <TechHeader />
       <main className="tech-main">
-        <Outlet />
+        <Suspense fallback={<RouteFallback />}>
+          <Outlet />
+        </Suspense>
       </main>
       <DogEar
         to="/reading"
