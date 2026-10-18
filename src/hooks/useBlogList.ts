@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { BlogMeta } from '../types/blog'
-
-interface ManifestEntry extends BlogMeta {
-  file: string
-}
+import type { ManifestEntry } from '../lib/blogManifest'
 
 export function useBlogList() {
   const [posts, setPosts] = useState<BlogMeta[]>([])
@@ -24,6 +21,7 @@ export function useBlogList() {
           source: entry.source,
           slug: entry.slug,
         }))
+        // Defensive: don't rely on the manifest's on-disk ordering.
         results.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         setPosts(results)
         setLoading(false)
