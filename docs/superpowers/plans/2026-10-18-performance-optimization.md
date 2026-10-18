@@ -124,7 +124,7 @@ git commit -m "chore: remove unused simple-icons dependency"
 **Files:**
 - Modify: `index.html:47-49`
 
-> Interim — removed in Task 13 once icons are self-hosted. Kept small so landing-page icon requests pay less connection setup in the meantime.
+> **PERMANENT (scope change 2026-10-18).** Originally interim pending Task 12 self-hosting, but Task 12 was dropped (no network in the build env — see Task 12). These preconnect/dns-prefetch hints are now the final icon optimization and are KEPT.
 
 - [ ] **Step 1: Add preconnect + dns-prefetch**
 
@@ -1120,7 +1120,11 @@ git add src/App.tsx src/components/tech/TechLayout.tsx src/components/shared/Rou
 git commit -m "perf: code-split routes and marked with two suspense boundaries"
 ```
 
-### Task 12: Self-host icons and color them via CSS
+### Task 12: Self-host icons and color them via CSS — ⛔ DROPPED (2026-10-18)
+
+> **This task was dropped and NOT implemented.** The build/CI environment has no outbound network, so the ~20 brand SVGs could not be vendored from `cdn.simpleicons.org` / `cdn.jsdelivr.net`, and `simple-icons` was no longer installed to copy from. Per the owner's decision, icons stay on the CDN and the Task 2 preconnect hints become the permanent icon optimization. The original steps are retained below for reference only — do not execute them.
+
+#### (Reference only — not executed)
 
 **Files:**
 - Create: `public/icons/*.svg` (vendored)
