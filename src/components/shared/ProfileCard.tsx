@@ -8,6 +8,9 @@ export function ProfileCard() {
         src={profilePicture}
         alt="Alexis Janero Moliner"
         className="profile-picture"
+        width={130}
+        height={130}
+        fetchPriority="high"
       />
       <h1 className="profile-name">Alexis Janero Moliner</h1>
       <SocialLinks />
