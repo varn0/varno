@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { MicroCv } from '../../components/tech/MicroCv'
+import { ThemeProvider } from '../../hooks/useTheme'
 
 beforeAll(() => {
   Object.defineProperty(window, 'matchMedia', {
@@ -19,7 +20,7 @@ beforeAll(() => {
 
 describe('MicroCv', () => {
   it('renders all 6 time periods', () => {
-    render(<MicroCv />)
+    render(<ThemeProvider><MicroCv /></ThemeProvider>)
     expect(screen.getByText('2025–')).toBeInTheDocument()
     expect(screen.getByText('2022–2024')).toBeInTheDocument()
     expect(screen.getByText('2021')).toBeInTheDocument()
@@ -29,13 +30,13 @@ describe('MicroCv', () => {
   })
 
   it('renders icons with accessible alt text', () => {
-    render(<MicroCv />)
+    render(<ThemeProvider><MicroCv /></ThemeProvider>)
     expect(screen.getByAltText('React')).toBeInTheDocument()
     expect(screen.getByAltText('FastAPI')).toBeInTheDocument()
   })
 
   it('renders most recent period first', () => {
-    render(<MicroCv />)
+    render(<ThemeProvider><MicroCv /></ThemeProvider>)
     const labels = screen.getAllByText(/^\d{4}/)
     expect(labels[0]).toHaveTextContent('2025–')
     expect(labels[labels.length - 1]).toHaveTextContent('2010–2013')

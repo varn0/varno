@@ -1,16 +1,19 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import { TechLayout } from '../../components/tech/TechLayout'
+import { ThemeProvider } from '../../hooks/useTheme'
 
 function renderLayout() {
   return render(
-    <MemoryRouter initialEntries={['/']}>
-      <Routes>
-        <Route element={<TechLayout />}>
-          <Route path="/" element={<div>home content</div>} />
-        </Route>
-      </Routes>
-    </MemoryRouter>,
+    <ThemeProvider>
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route element={<TechLayout />}>
+            <Route path="/" element={<div>home content</div>} />
+          </Route>
+        </Routes>
+      </MemoryRouter>
+    </ThemeProvider>,
   )
 }
 
