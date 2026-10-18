@@ -10,7 +10,7 @@ In my experience across several development teams, I've seen a common and often 
 
 The choice of architecture must be based on scale and team size, not trends.
 
-![Monolith vs Modulith vs Microservices](/content/blog/modulith-diagram.png)
+![Monolith vs Modulith vs Microservices](/content/blog/modulith-diagram.webp)
 
 **Monolith:** Ideal for 1-3 person teams focused purely on rapid MVP delivery and time-to-market.
 
