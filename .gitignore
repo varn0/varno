@@ -26,3 +26,6 @@ dist-ssr
 # Playwright MCP
 .playwright-mcp/
 .superpowers/
+
+# Generated at build from each post's frontmatter — edit the .md, not this file
+public/content/blog/manifest.json

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { parseFrontmatter, renderMarkdown } from '../lib/markdown'
+import { fetchText } from '../lib/fetchCache'
 
 interface UseMarkdownResult<T> {
   data: T | null
@@ -19,11 +20,7 @@ export function useMarkdown<T extends Record<string, unknown>>(url: string): Use
   useEffect(() => {
     let cancelled = false
 
-    fetch(url)
-      .then(res => {
-        if (!res.ok) throw new Error(`Failed to fetch ${url}`)
-        return res.text()
-      })
+    fetchText(url)
       .then(raw => {
         if (cancelled) return
         const { frontmatter, body } = parseFrontmatter(raw)
